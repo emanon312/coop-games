@@ -3,657 +3,111 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>一台电脑，两个人 —— 78 款被玩家论坛挖出来的双人同屏游戏</title>
-<style>
-:root {
-  --ink:#111; --ink2:#555; --ink3:#8a8a8a; --line:#e3e0da;
-  --bg:#faf8f4; --card:#fff; --accent:#c8442b; --accent2:#1a1a1a;
-  --gold:#b8860b; --bb:#fb7299;
-}
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
-  line-height:1.7; -webkit-font-smoothing:antialiased;
-}
-.wrap { max-width:1080px; margin:0 auto; padding:0 24px; box-sizing:border-box; }
-
-/* ---------- 头图 ---------- */
-header {
-  padding:96px 0 64px; border-bottom:1px solid var(--line);
-  background:
-    radial-gradient(circle at 88% 18%, rgba(200,68,43,.08), transparent 42%),
-    radial-gradient(circle at 8% 88%, rgba(184,134,11,.07), transparent 40%),
-    var(--bg);
-}
-.kicker {
-  font-size:13px; letter-spacing:.28em; text-transform:uppercase;
-  color:var(--accent); font-weight:600; margin-bottom:20px;
-}
-h1 {
-  font-size:clamp(34px,5.6vw,62px); line-height:1.12; margin:0 0 22px;
-  font-weight:800; letter-spacing:-.02em;
-}
-h1 em { font-style:normal; color:var(--accent); }
-.lede { font-size:18px; color:var(--ink2); max-width:660px; margin:0 0 40px; }
-.lede b { color:var(--ink); }
-
-.stats { display:flex; flex-wrap:wrap; gap:48px; padding-top:8px; }
-.stat .v { font-size:40px; font-weight:800; line-height:1; letter-spacing:-.02em; }
-.stat .v small { font-size:16px; font-weight:600; color:var(--ink3); margin-left:4px; }
-.stat .k { font-size:12.5px; color:var(--ink3); letter-spacing:.1em; margin-top:8px; }
-.stat.hot .v { color:var(--accent); }
-
-/* ---------- 说明 ---------- */
-.method {
-  padding:56px 0; border-bottom:1px solid var(--line);
-  display:grid; grid-template-columns:1fr 1fr; gap:48px;
-}
-.method h2 { font-size:14px; letter-spacing:.2em; color:var(--ink3); margin:0 0 14px; font-weight:600; }
-.method p { margin:0 0 12px; color:var(--ink2); font-size:15px; }
-.method strong { color:var(--ink); }
-
-/* ---------- 排序条 ---------- */
-.toolbar {
-  position:sticky; top:0; z-index:30; background:rgba(250,248,244,.94);
-  backdrop-filter:blur(12px); border-bottom:1px solid var(--line);
-  padding:14px 0;
-}
-.toolbar .wrap { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-.toolbar .lbl { font-size:12.5px; color:var(--ink3); letter-spacing:.1em; margin-right:6px; }
-.btn {
-  border:1px solid var(--line); background:var(--card); color:var(--ink2);
-  padding:7px 15px; border-radius:999px; font-size:13.5px; cursor:pointer;
-  font-family:inherit; transition:.16s;
-}
-.btn:hover { border-color:#c9c4bb; color:var(--ink); }
-.btn.on { background:var(--accent2); border-color:var(--accent2); color:#fff; }
-.spacer { flex:1; }
-.search {
-  border:1px solid var(--line); background:var(--card); border-radius:999px;
-  padding:7px 16px; font-size:13.5px; font-family:inherit; width:200px; color:var(--ink);
-}
-.search:focus { outline:none; border-color:var(--accent); }
-
-/* ---------- 卡片 ---------- */
-main { padding:36px 0 80px; }
-.card {
-  background:var(--card); border:1px solid var(--line); border-radius:16px;
-  padding:30px 32px; margin-bottom:18px; position:relative;
-  transition:box-shadow .22s, border-color .22s, transform .22s;
-}
-.card:hover { box-shadow:0 10px 34px rgba(0,0,0,.06); border-color:#d6d1c8; }
-.card .rank {
-  position:absolute; top:-1px; left:-1px; width:52px; height:52px;
-  background:var(--accent2); color:#fff; border-radius:16px 0 16px 0;
-  display:flex; align-items:center; justify-content:center;
-  font-weight:800; font-size:17px; font-variant-numeric:tabular-nums;
-}
-.card .rank.top { background:var(--accent); }
-.chead { display:flex; align-items:flex-start; gap:16px; margin-bottom:6px; padding-left:44px; }
-.chead .names { flex:1; min-width:0; }
-.gname .num { display:none; }
-.gname { font-size:24px; font-weight:800; letter-spacing:-.01em; margin:0; line-height:1.25; }
-.gname .en { font-size:14px; font-weight:500; color:var(--ink3); margin-left:8px; letter-spacing:0; }
-.tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
-.tag {
-  font-size:11.5px; padding:2px 9px; border-radius:6px;
-  background:#f3f0ea; color:var(--ink2); letter-spacing:.02em;
-}
-.tag.form { background:#fdf0ec; color:var(--accent); }
-.meter { text-align:right; flex-shrink:0; }
-.meter .num { font-size:26px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
-.meter .num small { font-size:12px; font-weight:600; color:var(--ink3); margin-left:2px; }
-.meter .cap { font-size:11px; color:var(--ink3); margin-top:5px; letter-spacing:.06em; }
-.cool { font-size:13px; color:var(--gold); letter-spacing:2px; margin-top:6px; }
-.cool .empty { color:#ddd8d0; }
-
-.why { font-size:15.5px; color:var(--ink2); margin:18px 0 0; padding-left:44px; }
-.links { padding-left:44px; margin-top:14px; display:flex; gap:14px; flex-wrap:wrap; }
-.links a { font-size:13px; color:var(--ink3); text-decoration:none; border-bottom:1px dotted #cfc9bf; }
-.links a:hover { color:var(--accent); border-color:var(--accent); }
-
-.evs { padding-left:44px; margin-top:18px; border-top:1px dashed var(--line); padding-top:16px; }
-.ev { margin-bottom:12px; }
-.ev:last-child { margin-bottom:0; }
-.ev .q {
-  font-size:14px; color:var(--ink); background:#fbf9f5; border-left:3px solid var(--line);
-  padding:9px 14px; border-radius:0 8px 8px 0; margin:0;
-}
-.ev .q:before { content:"「"; } .ev .q:after { content:"」"; }
-.ev .q.mid { color:#8a8580; }
-.ev .m { font-size:12px; color:var(--ink3); margin-top:5px; display:flex; gap:12px; flex-wrap:wrap; }
-.ev .m a { color:var(--bb); text-decoration:none; }
-.ev .m a:hover { text-decoration:underline; }
-.ev .m .lk { color:var(--accent); }
-
-/* ---- 媒体：一行横向小图，点开看大图/播放 ---- */
-.media { padding-left:44px; margin-top:16px; }
-  .media .mhint ${ font-size: 12px; color: #8a8378; margin: 0 0 7px; }
-  .media .hintwarn ${ color: #b4552f; }
-
-.media .strip {
-  display:flex; gap:9px; overflow-x:auto; padding-bottom:4px;
-  scrollbar-width:thin;
-}
-.media .strip::-webkit-scrollbar { height:5px; }
-.media .strip::-webkit-scrollbar-thumb { background:#ddd8d0; border-radius:3px; }
-.media .shot {
-  position:relative; flex:0 0 auto; width:172px; aspect-ratio:16/9;
-  border-radius:9px; overflow:hidden; background:#e8e4dd; cursor:pointer;
-  box-shadow:0 1px 5px rgba(0,0,0,.10);
-  transition:transform .13s, box-shadow .13s;
-}
-.media .shot:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.18); }
-.media .shot img { width:100%; height:100%; object-fit:cover; display:block; }
-.media .shot .play {
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  background:rgba(0,0,0,.14);
-}
-.media .shot .play i {
-  width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,.93);
-  display:flex; align-items:center; justify-content:center; font-style:normal;
-  box-shadow:0 2px 8px rgba(0,0,0,.32);
-}
-.media .shot .play i:after {
-  content:""; border-style:solid; border-width:7px 0 7px 11px;
-  border-color:transparent transparent transparent var(--accent2); margin-left:3px;
-}
-.media .shot .dur {
-  position:absolute; right:5px; bottom:5px; z-index:2; font-size:10.5px; font-weight:700;
-  color:#fff; background:rgba(0,0,0,.75); padding:0 5px; border-radius:3px;
-  font-variant-numeric:tabular-nums;
-}
-.media .shot.cover { opacity:.82; }
-.media .shot.cover:hover { opacity:1; }
-.media .shot .tag { position:absolute; left:0; top:0; z-index:2; font-size:10px; font-weight:700;
-  color:#fff; background:rgba(200,68,43,.92); padding:2px 6px; border-radius:0 0 6px 0; }
-/* 大图/播放器盖上来的浮层 */
-.big {
-  position:fixed; inset:0; z-index:99; background:#0b0b0b;
-  display:flex; align-items:center; justify-content:center; padding:20px;
-  animation:fade .16s ease-out;
-}
-@keyframes fade { from { opacity:0 } to { opacity:1 } }
-.big .in { position:relative; width:100%; max-width:960px; }
-.big .in iframe {
-  width:100%; aspect-ratio:16/9; border:0; border-radius:12px; display:block; background:#000;
-}
-/* 截图大小不一，不裁不拉伸：按原始比例居中显示，最长边不超过 88vh */
-.big .in img {
-  max-width:100%; max-height:82vh; width:auto; height:auto; display:block;
-  margin:0 auto; border-radius:10px; image-rendering:auto;
-}
-.big .cap {
-  color:#eee; font-size:13px; margin-top:10px; line-height:1.6;
-  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-}
-.big .cap a { color:#fb7299; text-decoration:none; }
-.big .x {
-  position:absolute; top:-38px; right:0; width:30px; height:30px; border-radius:50%;
-  border:0; background:rgba(255,255,255,.16); color:#fff; font-size:16px; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-}
-.big .nav {
-  position:absolute; top:50%; transform:translateY(-50%); width:36px; height:56px;
-  border:0; background:rgba(255,255,255,.16); color:#fff; font-size:20px; cursor:pointer;
-  border-radius:8px; display:flex; align-items:center; justify-content:center;
-}
-.big .nav.prev { left:-48px; } .big .nav.next { right:-48px; }
-.big .nav:disabled { opacity:.25; cursor:default; }
-@media (max-width:640px) {
-  .media { padding-left:0; }
-  .media .shot { width:136px; }
-  .big { padding:12px; }
-  .big .nav.prev { left:4px; } .big .nav.next { right:4px; }
-  .big .x { top:-34px; right:0; }
-}
-.media .novid {
-  font-size:13px; color:var(--ink3); background:#f7f5f1; border:1px dashed var(--line);
-  border-radius:10px; padding:16px; text-align:center;
-}
-.toggle {
-  padding-left:44px; margin-top:12px; font-size:12.5px; color:var(--ink3);
-  cursor:pointer; user-select:none; display:inline-block;
-}
-.toggle:hover { color:var(--accent); }
-.more { display:none; }
-.more.open { display:block; }
-
-/* ---------- 页脚 ---------- */
-footer { border-top:1px solid var(--line); padding:56px 0 80px; background:#f6f3ee; }
-footer h2 { font-size:14px; letter-spacing:.2em; color:var(--ink3); margin:0 0 18px; font-weight:600; }
-.excl { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px; }
-.excl span { font-size:13px; padding:5px 12px; border-radius:999px; background:#fff; color:#a09a92; border:1px solid var(--line); text-decoration:line-through; text-decoration-color:#d9d3c9; }
-.excl.nostrike span { text-decoration:none; color:#6b665f; }
-.note { font-size:13.5px; color:var(--ink3); max-width:760px; }
-.note p { margin:0 0 10px; }
-.note strong { color:var(--ink2); }
-.empty { text-align:center; padding:80px 0; color:var(--ink3); font-size:15px; }
-@media (max-width:720px) {
-  .method { grid-template-columns:1fr; gap:30px; }
-  .card { padding:24px 20px; }
-  .card .rank { width:44px; height:44px; font-size:15px; border-radius:12px 0 12px 0; }
-  .chead, .why, .links, .evs, .toggle { padding-left:0; }
-  .chead { padding-left:0; margin-top:12px; }
-  .stats { gap:28px; }
-  .stat .v { font-size:30px; }
-  .search { width:100%; }
-}
-
-/* ============================================================
-   手机端 · 全面重做（滚动流畅 + 触控友好）
-   ============================================================ */
-@media (max-width:640px) {
-  /* 关键：关掉平滑滚动，iOS 上它和 sticky / 惯性滚动打架 */
-  html { scroll-behavior:auto; }
-  body { -webkit-overflow-scrolling:touch; }
-
-  .wrap { padding:0 14px; }
-
-  /* ---- 头部 ---- */
-  header { padding:34px 0 26px; }
-  .kicker { font-size:10px; letter-spacing:.16em; margin-bottom:10px; }
-  h1 { font-size:27px; line-height:1.22; margin-bottom:12px; letter-spacing:-.01em; }
-  h1 br { display:none; }
-  .lede { font-size:14px; line-height:1.72; margin-bottom:20px; }
-  .stats {
-    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
-    background:var(--line); border:1px solid var(--line); border-radius:12px;
-    overflow:hidden; padding:0;
-  }
-  .stat { background:var(--card); padding:11px 8px 10px; text-align:center; }
-  .stat:nth-child(7) { grid-column:span 1; }
-  /* 7 个格子：第一行 4 个，第二行 3 个、最后一个跨两列填满 */
-  .stats { grid-template-columns:repeat(4,1fr); }
-  .stats .stat:nth-child(7) { grid-column:span 2; }
-  .stat .v { font-size:19px; line-height:1.15; }
-  .stat .v small { font-size:10px; margin-left:1px; }
-  .stat .k { font-size:9.5px; margin-top:3px; letter-spacing:0; }
-
-  .method { padding:26px 0; grid-template-columns:1fr; gap:22px; }
-  .method h2 { font-size:11px; margin-bottom:8px; }
-  .method p { font-size:13px; line-height:1.72; }
-
-  /* ---- 排序条：不再 sticky，改成静态块，彻底不抢滚动 ---- */
-  .toolbar {
-    position:static; padding:12px 0; border-bottom:1px solid var(--line);
-    background:var(--bg); backdrop-filter:none;
-  }
-  .toolbar .wrap { display:block; padding:0 14px; }
-  .toolbar .lbl { display:none; }
-  .toolbar .spacer { display:none; }
-  .toolbar .row { display:flex; gap:6px; overflow-x:auto; padding-bottom:2px; }
-  .toolbar .row::-webkit-scrollbar { display:none; }
-  .btn {
-    flex:0 0 auto; padding:9px 14px; font-size:13px; border-radius:10px;
-    -webkit-tap-highlight-color:transparent; touch-action:manipulation;
-    min-height:38px; display:flex; align-items:center;
-  }
-  .btn.on { box-shadow:0 2px 8px rgba(26,26,26,.18); }
-  .search {
-    width:100%; font-size:16px; padding:11px 14px; border-radius:11px; margin-top:8px;
-    min-height:44px;
-  }
-
-  main { padding:20px 0 40px; }
-
-  /* ---- 卡片 ---- */
-  .card {
-    padding:0; border-radius:14px; margin-bottom:14px; overflow:hidden;
-    box-shadow:0 1px 3px rgba(0,0,0,.045);
-  }
-  .card:hover { box-shadow:0 1px 3px rgba(0,0,0,.045); }
-  .card .rank {
-    width:auto; height:auto; top:12px; left:12px;
-    padding:3px 9px; border-radius:8px; font-size:12px; font-weight:800;
-    background:rgba(26,26,26,.86); backdrop-filter:blur(6px);
-    min-width:0;
-  }
-  .card .rank.top { background:rgba(200,68,43,.94); }
-
-  /* 手机端不出角标：绝对定位会压在标题上，标题自己够醒目 */
-  .card .rank { display:none; }
-  .chead { padding:16px 14px 0; margin:0; display:block; }
-  .gname { font-size:18px; line-height:1.34; }
-  .gname .num { display:inline-block; vertical-align:3px; margin-right:8px; color:var(--accent); font-size:13px; font-weight:800; letter-spacing:0; }
-  .gname .en { display:block; margin:2px 0 0; font-size:11.5px; }
-  .meter {
-    display:flex; align-items:center; gap:6px;
-    margin-top:9px; text-align:left;
-  }
-  .meter .num { font-size:18px; }
-  .meter .num small { font-size:11px; }
-  .meter .cap { font-size:10.5px; margin:0; }
-  .cool { display:inline-block; font-size:12px; margin:0 0 0 auto; letter-spacing:1px; }
-
-  .tags { padding:0 14px; margin-top:8px; gap:5px; }
-  .tags span { font-size:10.5px; padding:2px 8px; border-radius:5px; }
-  /* 卡片里 .tag 与媒体角标同名，媒体角标用 .shot .tag 已限定作用域 */
-  .tags .tag { position:static; }
-
-  .why { padding:0 14px; margin-top:10px; font-size:13.5px; line-height:1.72; }
-
-  /* ---- 图片：横向条保留滑动，但竖滑不锁页 ---- */
-  .media { padding:0; margin-top:12px; }
-  .media .strip {
-    padding:0 14px 3px; gap:7px;
-    overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch;
-  }
-  .media .shot {
-    width:128px; border-radius:8px;
-    touch-action:pan-x pan-y; -webkit-tap-highlight-color:transparent;
-  }
-  .media .shot:hover { transform:none; box-shadow:0 1px 4px rgba(0,0,0,.12); }
-  .media .shot .play i { width:26px; height:26px; }
-  .media .shot .play i:after { border-width:5px 0 5px 8px; margin-left:2px; }
-  .media .shot .dur { font-size:9.5px; right:4px; bottom:4px; padding:0 4px; }
-  .media .shot .tag { font-size:9px; padding:1px 5px; }
-  .media .mhint { padding:0 14px; font-size:11px; }
-
-  .links { padding:0 14px; margin-top:10px; gap:10px; }
-  .links a { font-size:12.5px; min-height:32px; display:inline-flex; align-items:center; }
-
-  .evs { padding:12px 14px 0; margin-top:12px; }
-  .ev { margin-bottom:10px; }
-  .ev .q { font-size:13px; padding:8px 11px; line-height:1.68; border-radius:0 7px 7px 0; }
-  .ev .m { font-size:11px; gap:8px; margin-top:4px; }
-  .ev .m a { min-height:28px; display:inline-flex; align-items:center; }
-
-  .toggle {
-    padding:10px 14px 14px; margin:0; font-size:12.5px; color:var(--accent);
-    display:block; min-height:44px; box-sizing:border-box;
-  }
-
-  /* ---- 浮层：铺满整屏，图按原始比例，说明在图下面 ---- */
-  .big {
-    padding:0; align-items:center; justify-content:center;
-    overflow-y:auto; background:#0b0b0b;
-  }
-  .big .in { max-width:100%; width:100%; padding:0 0 18px; }
-  .big .in img {
-    width:100%; max-height:72vh; height:auto; object-fit:contain;
-    border-radius:0; display:block;
-  }
-  .big .in iframe { width:100%; aspect-ratio:16/9; border-radius:0; }
-  .big .x {
-    position:fixed; top:8px; right:8px; width:40px; height:40px; font-size:18px;
-    border-radius:50%; background:rgba(255,255,255,.14); z-index:2;
-  }
-  .big .nav { width:38px; height:60px; }
-  .big .nav.prev { left:2px; } .big .nav.next { right:2px; }
-  .big .cap {
-    font-size:12px; margin-top:10px; padding:0 14px; gap:6px;
-    display:flex; flex-wrap:wrap; line-height:1.7; text-align:left;
-  }
-  .big .cap span { display:inline; }
-
-  /* ---- 页脚 ---- */
-  footer { margin-top:0; padding:30px 0 48px; }
-  footer h2 { font-size:11px; margin-bottom:12px; }
-  .excl { gap:6px; margin-bottom:24px; }
-  .excl span { font-size:11px; padding:4px 9px; }
-  .method p, .note { font-size:13px; line-height:1.75; }
-}
-
-/* 极窄屏（iPhone SE 一类） */
-@media (max-width:360px) {
-  .stat .v { font-size:17px; }
-  .media .shot { width:116px; }
-}
-</style>
+<meta name="theme-color" content="#f5f6f8">
+<meta name="description" content="78 款有真实社区出处的本地同屏、分屏双人游戏。看游戏画面、筛选玩法、保存想玩清单，找到今晚值得玩的游戏。">
+<title>CO-OP FINDER · 今晚玩什么？78 款双人同屏游戏</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<header>
-<div class="wrap">
-  <div class="kicker">玩家论坛考古 · 冷门双人同屏</div>
-  <h1>一台电脑，<br>两个人。<em>78 款</em></h1>
-  <p class="lede">
-    不是商店首页，也不是媒体榜单。<br>
-    这 78 款全是从 <b>B 站 12+ 个视频的评论区</b>、<b>豆瓣小组</b>、
-    <b>ふりーむ 作品页</b>和<b>日本 5ch 讨论串</b>里，
-    网友和作者自己一个字一个字写出来的——下面每一条都附原话和链接，你可以自己去翻。
-  </p>
-  <div class="stats">
-    <div class="stat hot"><div class="v">78<small>款</small></div><div class="k">可玩候选</div></div>
-    <div class="stat"><div class="v">98<small>条</small></div><div class="k">原话佐证</div></div>
-    <div class="stat"><div class="v">60<small>条</small></div><div class="k">B站评论</div></div>
-    <div class="stat"><div class="v">4<small>条</small></div><div class="k">豆瓣小组</div></div>
-    <div class="stat"><div class="v">23<small>条</small></div><div class="k">ふりーむ 页面</div></div>
-    <div class="stat"><div class="v">11<small>条</small></div><div class="k">日本社区帖</div></div>
-    <div class="stat"><div class="v">27<small>款</small></div><div class="k">五星冷门</div></div>
+<header class="topbar">
+  <div class="shell topbar-inner">
+    <a class="brand" href="./" aria-label="回到 CO-OP FINDER 首页"><span class="brand-mark" aria-hidden="true">🎮</span><span>CO-OP <em>FINDER</em></span></a>
+    <nav class="nav-actions" aria-label="主要导航">
+      <a class="topnav-link" href="#discover">探索游戏</a>
+      <a class="topnav-link" href="#about">关于这份清单</a>
+      <button class="nav-save" id="favorite-toggle" type="button" aria-pressed="false">♡ 想玩清单 <span id="saved-count">0</span></button>
+    </nav>
   </div>
-</div>
 </header>
-
-<section class="method">
-  <div class="wrap" style="display:contents">
-    <div>
-      <h2>怎么筛的</h2>
-      <p>先按「双人 / 同屏 / 分屏 / 本地 / 合作」等关键词在 B 站找出 12+ 个相关视频，逐条抓评论区，去重后得到 <strong>521 条评论</strong>。豆瓣小组挖到 4 条。</p>
-      <p>日本那头来自 <strong>ふりーむ</strong>（日本最大的免费游戏站，作品页本身写着「２人同時プレイ可」这类硬证据）和 <strong>5ch</strong> 讨论串（网友在「两个人玩一晚上」这类帖子里报的名字）。</p>
-      <p>再人工过一遍：只留<strong>报名字、说出推荐理由、确认能本地双人</strong>的，把「（__）太难了」「玩吐了」这类吐槽剔掉。</p>
-      <p><strong>照抄 UP 主片单的评论只算一条证据</strong>，不当成十条推荐。日本条目里我核不到的（比如 Hermes 报的《クインティ》，整串 5ch 搜不到原文）一律不进表。</p>
+<section class="hero shell" aria-labelledby="hero-heading">
+  <div class="hero-panel">
+    <div class="hero-art" aria-hidden="true">
+      <img id="hero-feature-image" src="img/yt/hscXkVKMVHY.jpg" alt="">
+      <div class="hero-glow"></div>
+      <div class="hero-feature"><div class="small">FEATURED GAME / #01</div><h3 id="feature-title">上行战场</h3><p id="feature-description">赛博朋克俯视射击 · 分屏</p></div>
     </div>
-    <div>
-      <h2>怎么排的</h2>
-      <p>主排序是<strong>被几条不同评论提到</strong>——人多说明是真有人在意，不是一个人在喊。</p>
-      <p>同票数时按<strong>点赞总量</strong>排，再参考冷门度。冷门度是我的判断，标在每张卡片上。</p>
-      <p>你可以随时切到「最冷门」看那些只有一条证据、但明显被埋没的。</p>
+    <div class="hero-copy">
+      <div class="eyebrow">GAME NIGHT, SORTED</div>
+      <h1 id="hero-heading">今晚玩什么？<br><strong>一起选个好玩的。</strong></h1>
+      <p class="hero-desc">不想再翻几十页游戏推荐？这里有 <span id="game-total">78</span> 款被玩家提到的双人本地游戏。<br>先看画面，再挑玩法，找到你们的下一款快乐。</p>
+      <div class="hero-buttons">
+        <a class="primary-btn" href="#discover">开始找游戏 <span aria-hidden="true">↗</span></a>
+        <button id="random-pick" class="ghost-btn" type="button">✧ 帮我随机挑一款</button>
+      </div>
     </div>
+  </div>
+  <div class="substrip">
+    <div><b>真实玩家提名</b><span class="dot"></span>优先展示游戏实拍画面<span class="dot"></span>原话来源可追溯</div>
+    <div class="right">收录于 2026.11.14 · 非商业榜单</div>
   </div>
 </section>
-
-<div class="toolbar">
-  <div class="wrap">
-    <span class="lbl">SORT</span>
-    <div class="row">
-      <button class="btn on" data-sort="hit">被提到次数</button>
-      <button class="btn" data-sort="like">点赞总量</button>
-      <button class="btn" data-sort="cool">最冷门</button>
-      <button class="btn" data-sort="rank">原始顺序</button>
+<main id="discover" class="shell discovery">
+  <div class="section-intro">
+    <div><div class="overline">FIND YOUR NEXT GAME</div><h2>发现下一款双人游戏</h2><p>按你们的玩法习惯筛选，而不是从头读到尾。</p></div>
+    <div class="count-note" id="result-count">找到 <b>78</b> 款游戏</div>
+  </div>
+  <section class="filters" aria-label="游戏筛选">
+    <div class="top-filter">
+      <label class="searchbox" for="search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16.2 16.2 4.5 4.5"/></svg>
+        <input type="search" id="search" autocomplete="off" placeholder="搜索游戏名、玩法、关键词…" aria-label="搜索游戏">
+      </label>
+      <div class="mode-group" role="group" aria-label="游玩方式">
+        <button class="pill selected" type="button" data-mode="all" aria-pressed="true">全部</button>
+        <button class="pill" type="button" data-mode="shared" aria-pressed="false">🖥 同屏</button>
+        <button class="pill" type="button" data-mode="split" aria-pressed="false">▣ 分屏</button>
+        <button class="pill" type="button" data-mode="keyboard" aria-pressed="false">⌨ 一把键盘</button>
+        <button class="pill" type="button" data-mode="multi" aria-pressed="false">👥 3 人及以上</button>
+      </div>
     </div>
-    <span class="spacer"></span>
-    <input class="search" id="q" placeholder="搜游戏名或类型…">
-  </div>
-</div>
-
-<main>
-<div class="wrap" id="list"></div>
+    <div class="filter-divider"></div>
+    <div class="bottom-filter">
+      <div class="genres" role="group" aria-label="游戏类型">
+        <span class="filter-label">游戏类型</span>
+        <button class="genre-btn selected" type="button" data-genre="all" aria-pressed="true">全部类型</button>
+        <button class="genre-btn" type="button" data-genre="puzzle" aria-pressed="false">🧩 解谜合作</button>
+        <button class="genre-btn" type="button" data-genre="party" aria-pressed="false">🎉 欢乐乱斗</button>
+        <button class="genre-btn" type="button" data-genre="action" aria-pressed="false">⚔ 动作闯关</button>
+        <button class="genre-btn" type="button" data-genre="explore" aria-pressed="false">🗺 冒险探索</button>
+        <button class="genre-btn" type="button" data-genre="other" aria-pressed="false">✦ 其他玩法</button>
+      </div>
+      <div class="sort-area">
+        <label class="onlyshots"><input type="checkbox" id="only-shots">有实拍图</label>
+        <label for="sort">排序</label>
+        <select id="sort">
+          <option value="popular">玩家提名优先</option>
+          <option value="rare">最冷门优先</option>
+          <option value="likes">评论点赞优先</option>
+          <option value="original">原始收录顺序</option>
+        </select>
+      </div>
+    </div>
+  </section>
+  <div id="grid" class="grid" aria-live="polite"></div>
 </main>
-
-<footer>
-<div class="wrap">
-  <h2>已排除</h2>
-  <div class="excl"><span>双人成行 / It Takes Two</span><span>双影奇境 / Split Fiction</span><span>胡闹厨房 / Overcooked</span><span>茶杯头 / Cuphead</span><span>毛线小精灵 / Unravel Two</span><span>兄弟：双子传说 / Brothers</span><span>逃出生天 / A Way Out</span></div>
-  <h2>看着像但不是同屏</h2>
-  <div class="excl nostrike"><span><a href="https://www.freem.ne.jp/win/game/25351" target="_blank" rel="noopener">Melt</a> — 对战型解谜逃脱，轮流回合制，另一个人得离席不看屏幕</span><span><a href="https://www.freem.ne.jp/win/game/28343" target="_blank" rel="noopener">二つの塔 -右脳- / -左脳-</a> — 要两台电脑各开一个，靠通话配合，不是同屏</span></div>
-  <h2>报了但核不到，没收录</h2>
-  <div class="excl nostrike"><span>ブレイズ&amp;ブレイド — Hermes 前后给了两个不同版本的原话，指向的 5ch 第 93 条回复里连「ブレイズ」三个字都没有，判定为编造，剔除</span><span>いっき / Ikki — 链接指向 yurugame 转载页，非 5ch 原文，未收录</span><span>DLsite 免费区 — dlsite.com 本机直连超时，代理只拿到片段，无可靠条目</span></div>
-  <div class="note">
-    <p><strong>关于可信度。</strong>每条引用都带原帖链接，但「能本地双人」是网友或作者说的，不是我实测的。Steam 页面在这台机器上打不开（返回 000），价格和中文支持请自己点商店页确认。</p>
-    <p><strong>关于排序。</strong>「被提到几次」是这个样本里的次数，不代表全网热度；冷门度星级是我的判断。日本条目大多没有点赞数，所以排序时按「被独立提到几条」算，不按点赞。</p>
-    <p><strong>关于语言。</strong>ふりーむ 那批全部是日文独占，只有《ニャミルとボーンズ》这类靠画面就能玩的适合不懂日文的人。《The Stretchers》《PHOGS!》《Heavenly Bodies》《Henry Halfhead》有中文。</p>
-    <p><strong>没收录的。</strong>有的名字被提到但体验有争议，有的只在 UP 主片单里出现、没有网友自发推荐，这些没进主表。</p>
-    <p>数据采于 2026-11-14。原话未经改写，错别字照原样保留。</p>
+<footer id="about" class="foot">
+  <div class="shell">
+    <div class="foot-top">
+      <div><h2>不是排行榜，是玩家挖出来的宝藏。</h2><p>来自 B 站、豆瓣、ふりーむ和日本社区讨论。页面优先展示已有游戏截图，不拿视频 UP 主封面冒充实机画面。每款游戏都尽量保留玩家原话与出处。</p></div>
+      <div class="version">CO-OP FINDER · DATA 2026/11/14</div>
+    </div>
+    <details>
+      <summary>这份清单怎么来的？数据可靠吗？</summary>
+      <div class="details-copy">
+        <p>整理时按「双人 / 同屏 / 分屏 / 本地 / 合作」从 12+ 条 B 站视频评论、豆瓣小组、ふりーむ作品页与 5ch 讨论中筛选候选游戏；排除无法核实、只转述视频片单或并非本地双人玩法的条目。保留了原始语境与来源链接。</p>
+        <p>「玩家提名优先」按样本中独立被提及次数排序，同票参考评论点赞。<b>它不是游戏质量评分，也不代表全网热度。</b>冷门度星级是原整理者的主观判断。类型标签是为了浏览方便的关键词归类，可能不完全准确。</p>
+        <p>本地双人支持、平台、商店状态、手柄要求、中文支持与价格<b>没有逐款实测</b>，请在购买前核查官方游戏页面。收录列表中存在个别需双端画面的特殊玩法，详情页会标注。</p>
+        <p>原先已经排除的热门条目包括：《双人成行》《双影奇境》《胡闹厨房》《茶杯头》《毛线小精灵》《兄弟：双子传说》《逃出生天》。另有部分来源不充分的候选未收录。玩家评论引用为原文，未作为官方事实陈述。</p>
+      </div>
+    </details>
   </div>
-</div>
 </footer>
-
+<div id="modal-root"></div>
 <script>
 const GAMES = [{"name": "上行战场", "en": "The Ascent", "zh": "上行战场", "people": "2 人（分屏）", "form": "分屏", "genre": "赛博朋克俯视射击 ARPG", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/979690/The_Ascent/", "url": "", "why": "枪战爽、画面亮、地图密，两个人分屏打一条街的敌人。冷门度高——几乎没人把它当双人游戏。", "evs": [{"q": "我再来推荐几个: ①火柴人大乱斗 ②橡胶强盗 ③胡闹厨房2 ④上行战场 ⑤拳皇13 ⑥忍者神龟:施耐德的复仇 ⑦人类:一败涂地", "like": 1421, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply139756348944", "src": "B站", "when": "2021 前后"}, {"q": "9、上行战场（适合跟兄弟双打）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}, {"q": "战争机器5 基佬大乱斗 吸血鬼幸存者 茶杯头 星露谷物语 光环：士官长合集 毛线小精灵2 古惑狼赛车 氮气加速 上行战场 胡闹厨房", "like": 312, "url": "https://www.bilibili.com/video/BV1Fj421R7ZW/#reply254223879281", "src": "B站", "when": "2024-06"}], "n": 3, "likes": 2812, "db": 0, "vids": ["BV16P411w7tE", "BV1LkgdztEW2", "BV1Fj421R7ZW"], "shots": ["yt/hscXkVKMVHY.jpg", "yt/a_IntUM_Wh0.jpg", "yt/96TM5cS_6uY.jpg"], "rank": 1}, {"name": "克林巴", "en": "Kalimba", "zh": "克林巴", "people": "2 人（同屏）", "form": "同屏", "genre": "上下分身平台跳跃", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/324140/Kalimba/", "url": "", "why": "一个人同时控制上下两个身体，两个人正好各管一个。操作手感极好，被反复夸。", "evs": [{"q": "就觉得好好玩", "like": 8, "url": "https://www.bilibili.com/video/BV1YM411n7xP/#reply152780378784", "src": "B站", "when": "2023-02-18"}, {"q": "是真的好玩", "like": 0, "url": "https://www.bilibili.com/video/BV1YM411n7xP/#reply152920598992", "src": "B站", "when": "2023-02-18"}, {"q": "支持两个手柄游玩", "like": 4, "url": "https://www.bilibili.com/video/BV1YM411n7xP/#reply246310908816", "src": "B站", "when": "2024-11-05"}], "n": 3, "likes": 12, "db": 0, "vids": ["BV1YM411n7xP"], "shots": ["yt/7gsAuL-Nvdc.jpg", "yt/LyzhQMUJqtY.jpg", "yt/VZ_Gucc14DM.jpg"], "rank": 2}, {"name": "不再孤独", "en": "Lovers in a Dangerous Spacetime", "zh": "不再孤独", "people": "2 人（同屏）", "form": "同屏", "genre": "太空舰船分工合作", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/252110/", "url": "", "why": "一台飞船里一人开炮一人驾驶一人修护盾，靠喊话协调。冷门但被反复点名。", "evs": [{"q": "1.雷曼：起源 …… 16.不再孤独", "like": 2905, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply136435648688", "src": "B站", "when": "2021 前后"}, {"q": "比较适合情侣放松的游戏就是 兄弟：双子传说 城堡破坏者 不再孤独 接着： 忍者蛙2020 怒之铁拳4", "like": 1287, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply138830770464", "src": "B站", "when": "2021 前后"}], "n": 2, "likes": 4192, "db": 0, "vids": ["BV16P411w7tE"], "shots": ["yt/rCEXlKr5IUs.jpg", "yt/lBgTKYxyTrs.jpg"], "rank": 3}, {"name": "暗黑血统：创世神", "en": "Darksiders Genesis", "zh": "暗黑血统：创世神", "people": "2 人（同屏）", "form": "同屏", "genre": "俯视动作砍杀", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/710920/", "url": "", "why": "四个骑士里两个人一起砍，技能互补。系列里唯一一作做成了双人同屏。", "evs": [{"q": "19.暗黑血统：创世神", "like": 2905, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply136435648688", "src": "B站", "when": "2021 前后"}, {"q": "5、暗黑血统启示录（适合跟兄弟双打）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}], "n": 2, "likes": 3984, "db": 0, "vids": ["BV16P411w7tE", "BV1LkgdztEW2"], "shots": ["yt/zEalz5fhenc.jpg", "yt/mlDEuReJ0LE.jpg", "yt/VDTXiF4CP7Y.jpg"], "rank": 4}, {"name": "生化危机 5/6 / 启示录2", "en": "RE5 / RE6 / Revelations 2", "zh": "生化危机 5、6、启示录2", "people": "2 人（分屏）", "form": "分屏", "genre": "第三人称生存射击", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/221040/", "url": "", "why": "三人成组都被点名了。本地双人剧情流程长，适合连着几周慢慢过。", "evs": [{"q": "2、生化危机5 和6和生化危机启示录2（适合跟兄弟双打）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}, {"q": "生化56，启示录2（双人分屏，合作闯关）", "like": 586, "url": "https://www.bilibili.com/video/BV1CdKizGEWX/#reply267233104256", "src": "B站", "when": "2025 前后"}], "n": 2, "likes": 1665, "db": 0, "vids": ["BV1LkgdztEW2", "BV1CdKizGEWX"], "shots": ["yt/YU4F1owI2QE.jpg", "yt/OkOGhNb8PGw.jpg", "yt/m8nAHyYuZfo.jpg"], "rank": 5}, {"name": "橡胶强盗", "en": "Rubber Bandits", "zh": "橡胶强盗", "people": "2–4 人（同屏）", "form": "同屏", "genre": "物理抢银行乱斗", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/1370960/Rubber_Bandits/", "url": "", "why": "一帮软塌塌的强盗抢完银行互相捅刀。比《胡闹厨房》更混乱，但没到人尽皆知。", "evs": [{"q": "我再来推荐几个: ①火柴人大乱斗 ②橡胶强盗 ③胡闹厨房2", "like": 1421, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply139756348944", "src": "B站", "when": "2021 前后"}, {"q": "强烈推荐橡胶强盗", "like": 2, "url": "https://www.bilibili.com/video/BV1BN4y1p7QN/#reply206690740576", "src": "B站", "when": "2022 前后"}], "n": 2, "likes": 1423, "db": 0, "vids": ["BV16P411w7tE", "BV1BN4y1p7QN"], "shots": ["yt/kIoBSvRej_w.jpg", "yt/4z35_nIgQ0s.jpg", "yt/Ac8fzbTJ44E.jpg"], "rank": 6}, {"name": "猫咪斗恶龙 2", "en": "Cat Quest II", "zh": "猫咪斗恶龙 2", "people": "2 人（同屏）", "form": "同屏 · 手柄", "genre": "开放世界猫狗冒险 ARPG", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/914710/Cat_Quest_II/", "url": "", "why": "猫和狗一起冒险，砍怪拿装备。轻松向，用手柄同屏。", "evs": [{"q": "猫咪斗恶龙2可以手柄同屏", "like": 190, "url": "https://www.bilibili.com/video/BV1B841117Y8/#reply188261535792", "src": "B站", "when": "2023 前后"}, {"q": "8、猫咪斗恶龙", "like": 712, "url": "https://www.bilibili.com/video/BV1aM55z5E19/#reply263903924337", "src": "B站", "when": "2024 前后"}], "n": 2, "likes": 902, "db": 0, "vids": ["BV1B841117Y8", "BV1aM55z5E19"], "shots": ["yt/Jd11SPrPx6g.jpg", "yt/z8q8KWtmMdU.jpg"], "rank": 7}, {"name": "只只大冒险", "en": "Biped", "zh": "只只大冒险", "people": "2 人（同屏）", "form": "同屏", "genre": "双人闯关 + 解谜", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/1071870/Biped/", "url": "", "why": "两个小机器人互相抱着过关。操作有点别扭，但两人协作感很强。", "evs": [{"q": "只只大冒险（双人闯关，适应操作后很欢乐）", "like": 586, "url": "https://www.bilibili.com/video/BV1CdKizGEWX/#reply267233104256", "src": "B站", "when": "2025 前后"}, {"q": "双人，双影，兄弟传说，雷曼，麻布仔，三位一体，只只1/2，泡姆泡姆", "like": 49, "url": "https://www.bilibili.com/video/BV1mk7p69ETm/#reply310473238112", "src": "B站", "when": "2026 前后"}], "n": 2, "likes": 635, "db": 0, "vids": ["BV1CdKizGEWX", "BV1mk7p69ETm"], "shots": ["yt/smlef-jkmuQ.jpg", "yt/uXhfnGv_fEQ.jpg", "yt/zdNNSOueeuQ.jpg"], "rank": 8}, {"name": "ibb & obb", "en": "ibb & obb", "zh": "ibb & obb", "people": "2 人（同屏）", "form": "同屏", "genre": "重力反转解谜平台", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/95400/ibb_obb/", "url": "", "why": "一绿一粉两个小球，重力上下颠倒各走各的。确实被很多人推荐过，但玩过的人少。", "evs": [{"q": "ibb&obb（双人闯关，很适合新玩家）", "like": 586, "url": "https://www.bilibili.com/video/BV1CdKizGEWX/#reply267233104256", "src": "B站", "when": "2025 前后"}, {"q": "1.ibb & obb", "like": 0, "url": "https://www.bilibili.com/video/BV1144y1p7Vo/#reply100568047616", "src": "B站", "when": "2022-01-31"}], "n": 2, "likes": 586, "db": 0, "vids": ["BV1CdKizGEWX", "BV1144y1p7Vo"], "shots": ["yt/dMvzLrPq1oo.jpg", "yt/xmoFNdkaIQk.jpg"], "rank": 9}, {"name": "武装原型", "en": "Broforce", "zh": "武装原型", "people": "2–4 人（同屏）", "form": "同屏", "genre": "电影明星横版爆破", "cool": "★★☆☆☆", "steam": "https://store.steampowered.com/app/274190/Broforce/", "url": "", "why": "打得爽，破坏感强。这个真不算冷门，但 PC 双人同屏的体验很成熟。", "evs": [{"q": "1、武装原型", "like": 422, "url": "https://www.bilibili.com/video/BV1jT41127r4/#reply148257572640", "src": "B站", "when": "2021 前后"}, {"q": "武装原型", "like": 52, "url": "https://www.bilibili.com/video/BV1mk7p69ETm/#reply308371895648", "src": "B站", "when": "2026 前后"}], "n": 2, "likes": 474, "db": 0, "vids": ["BV1jT41127r4", "BV1mk7p69ETm"], "shots": ["yt/Eb2H8vdfH9E.jpg", "yt/C7db8vfSM1A.jpg", "yt/QLZAE2RFwlc.jpg"], "rank": 10}, {"name": "王国：两位君主", "en": "Kingdom Two Crowns", "zh": "王国：两位君主", "people": "2 人（分屏）", "form": "分屏", "genre": "横版建造防守", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/701160/Kingdom_Two_Crowns/", "url": "", "why": "两个人各守一半国土，骑马收税建城墙。节奏慢，适合不想动脑子的晚上。", "evs": [{"q": "《王国：两位君主》这个挺推荐的，支持本地分屏双人。很好玩", "like": 332, "url": "https://www.bilibili.com/video/BV1jT41127r4/#reply150688113024", "src": "B站", "when": "2021 前后"}, {"q": "王国两位君主", "like": 52, "url": "https://www.bilibili.com/video/BV1mk7p69ETm/#reply308371895648", "src": "B站", "when": "2026 前后"}], "n": 2, "likes": 384, "db": 0, "vids": ["BV1jT41127r4", "BV1mk7p69ETm"], "shots": ["yt/bte_AfcuSAM.jpg", "yt/8zm4bRkfMI8.jpg", "yt/slLpRgP44dc.jpg"], "rank": 11}, {"name": "泡姆泡姆", "en": "Popucom", "zh": "泡姆泡姆", "people": "2 人（同屏）", "form": "同屏", "genre": "2D 闯关 + 休闲", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/2957710/", "url": "", "why": "2025 年的国产 2D 双人闯关，萌系画风，操作门槛低。趁还没火起来可以玩。", "evs": [{"q": "推荐一下和女朋友玩过的 泡姆泡姆 咩咩启示录 失落城堡 捣蛋鹅", "like": 229, "url": "https://www.bilibili.com/video/BV1aM55z5E19/#reply283255986448", "src": "B站", "when": "2025 前后"}, {"q": "双人，双影，兄弟传说，雷曼，麻布仔，三位一体，只只1/2，泡姆泡姆啥的好多多人游戏，都打了好多遍了", "like": 49, "url": "https://www.bilibili.com/video/BV1mk7p69ETm/#reply310473238112", "src": "B站", "when": "2026 前后"}], "n": 2, "likes": 278, "db": 0, "vids": ["BV1aM55z5E19", "BV1mk7p69ETm"], "shots": ["yt/A68Q7ztCThM.jpg", "yt/FAFQawxUah4.jpg"], "rank": 12}, {"name": "九张羊皮纸", "en": "Nine Parchments", "zh": "九张羊皮纸", "people": "2–4 人（同屏）", "form": "同屏", "genre": "法术射击 ARPG", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/471550/Nine_Parchments/", "url": "", "why": "《三位一体》那家做的，但换成了魔法乱轰。友伤能开，人多会互相烧。", "evs": [{"q": "九张羊皮纸", "like": 6, "url": "https://www.bilibili.com/video/BV18fxVz6ERX/#reply287005950224", "src": "B站", "when": "2025-12-31"}, {"q": "九张羊皮纸", "like": 1, "url": "https://www.bilibili.com/video/BV18fxVz6ERX/#reply317408379648", "src": "B站", "when": "2026-09-14"}], "n": 2, "likes": 7, "db": 0, "vids": ["BV18fxVz6ERX"], "shots": ["yt/3KdU6EqTc4Q.jpg", "yt/7ixda2seJc0.jpg", "yt/jlfk_E46h8k.jpg"], "rank": 13}, {"name": "传说法师2", "en": "Wizard of Legend 2", "zh": "传说法师2", "people": "2 人（同屏）", "form": "同屏", "genre": "法术 roguelike", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/2193540/Wizard_of_Legend_2/", "url": "", "why": "快节奏法术肉鸽，两人同屏刷关。比一代新增了正式的本地双人。", "evs": [{"q": "魔能2，传说法师2", "like": 1, "url": "https://www.bilibili.com/video/BV18fxVz6ERX/#reply317408379648", "src": "B站", "when": "2026-09-14"}, {"q": "可以本地双人同屏", "like": 1, "url": "https://www.bilibili.com/video/BV18fxVz6ERX/#reply317394962720", "src": "B站", "when": "2026-09-14"}], "n": 2, "likes": 2, "db": 0, "vids": ["BV18fxVz6ERX"], "shots": ["yt/X1PBmdtvwAs.jpg", "yt/m33E6hEOpqI.jpg", "yt/5Sz3ewSkG7U.jpg"], "rank": 14}, {"name": "Ollie & Bollie: Outdoor Estate", "en": "Ollie & Bollie: Outdoor Estate", "zh": "Ollie & Bollie（中文名待核实）", "people": "2 人（同屏）", "form": "同屏 · 一把键盘", "genre": "合作整理沙盒", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/1218890/Ollie_Bollie_Outdoor_Estate/", "url": "", "why": "两个人一起修整一座庄园，用一把键盘就能玩，不用手柄。极度冷门。", "evs": [{"q": "一把键盘双人", "like": 0, "url": "https://www.bilibili.com/video/BV1144y1p7Vo/#reply101950242720", "src": "B站", "when": "2022-02-11"}, {"q": "不用手柄的", "like": 0, "url": "https://www.bilibili.com/video/BV1144y1p7Vo/#reply100830415808", "src": "B站", "when": "2022-02-02"}], "n": 2, "likes": 0, "db": 0, "vids": ["BV1144y1p7Vo"], "shots": ["yt/KojCUIS7JA8.jpg", "yt/WEar1Df8F1c.jpg"], "rank": 15}, {"name": "ニャミルとボーンズの大冒険", "en": "Nyamil and Bonz", "zh": "喵露与邦兹的大冒险", "people": "2 人（同屏，单人可切双角色）", "form": "同屏", "genre": "猫狗双主角平台跳跃", "cool": "★★★★★", "steam": "", "url": "https://www.freem.ne.jp/dl/win/3734", "why": "**最值得推荐的一条**，因为它解决了「一个人手残怎么办」：两只角色共享同一条 LIFE，作者原话是「操作が上手な人と、そうでない人が一緒にプレイしても最後まで一緒にプレイできます」。对象年龄 4 岁＋，适合跟女朋友或小孩一起打。日文独占。", "evs": [{"q": "２人同時プレイ可能。一人で２キャラ操る事もできます", "like": 0, "url": "https://www.freem.ne.jp/win/game/3734", "src": "ふりーむ", "when": "2012-03-22"}, {"q": "ゲームシステムは、ニャミルとボーンズが同じLIFEを共有する仕組みです。操作が上手な人と、そうでない人が一緒にプレイしても最後まで一緒にプレイできます", "like": 0, "url": "https://www.freem.ne.jp/win/game/3734", "src": "ふりーむ", "when": "2012-03-22"}], "n": 2, "likes": 0, "db": 0, "vids": [], "shots": ["fm/3734_0.jpg"], "rank": 16}, {"name": "托迪与托普迪", "en": "Toodee and Topdee", "zh": "托迪与托普迪", "people": "2 人（同屏）", "form": "同屏", "genre": "双视角解谜平台", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/1303950/Toodee_and_Topdee/", "url": "", "why": "一个人横版、一个人俯视，两个视角的物体互相影响。点子很妙，玩的人不多。", "evs": [{"q": "还挺有趣", "like": 0, "url": "https://www.douban.com/group/topic/291560594/", "src": "豆瓣", "when": "2023-07-12 · 豆瓣·女性玩家联合会「除了双人成行，有没有可以在一台电脑上玩的双人游戏？」"}, {"q": "10.Toodee and Topdee", "like": 0, "url": "https://www.bilibili.com/video/BV1144y1p7Vo/#reply100568047616", "src": "B站", "when": "2022-01-31"}], "n": 2, "likes": 0, "db": 1, "vids": ["BV1144y1p7Vo"], "shots": ["yt/Sl68Q1RDPVo.jpg", "yt/gIXExDcV1q0.jpg"], "rank": 17}, {"name": "バトルシティー", "en": "Battle City", "zh": "坦克大战", "people": "2 人（同屏）", "form": "同屏", "genre": "坦克对战 / 塔防", "cool": "★★☆☆☆", "steam": "", "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/1", "why": "**不算冷门**，国内人人玩过，标在这里只是备忘。5ch 帖里原话是「バトルシティ」和「バトルシティの対戦」，被当成两人对战的标准答案提了两次。FC 原版在 NSO，VS. 版 2024-09 上了 Arcade Archives。", "evs": [{"q": "バトルシティ", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/1", "src": "5ch", "when": "2026-09-19"}, {"q": "バトルシティの対戦 アイスクライマーの対戦 バルーンファイトの対戦", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/1", "src": "5ch", "when": "2026-09-20"}], "n": 2, "likes": 0, "db": 0, "vids": [], "shots": ["yt/rHQQzL91J6A.jpg", "yt/DfixqYPonHw.jpg", "yt/gduU-C0ywqQ.jpg"], "rank": 18}, {"name": "手动的塞缪尔", "en": "Manual Samuel", "zh": "手动的塞缪尔", "people": "2 人（同屏）", "form": "同屏", "genre": "按键拆解式沙雕物理", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/504320/Manual_Samuel/", "url": "", "why": "走路要把左右脚分开按，一个人左手一个人右手，笑点密集。全网几乎没人推荐，但它正是你要的那类。", "evs": [{"q": "1.雷曼：起源 2.RICO 3.逃出生天 4.兄弟：双子传说 5.茶杯头 6.不义联盟：人中之神 7.忍者蛙2020 8.手动的塞缪尔 9.怒之铁拳4 10.百战天虫", "like": 2905, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply136435648688", "src": "B站", "when": "2021 前后"}], "n": 1, "likes": 2905, "db": 0, "vids": ["BV16P411w7tE"], "shots": ["yt/ww3sgog7bqU.jpg", "yt/IdiqB2uYPhM.jpg"], "rank": 19}, {"name": "凯恩与林奇", "en": "Kane & Lynch: Dead Men", "zh": "凯恩与林奇", "people": "2 人（分屏）", "form": "分屏", "genre": "第三人称抢劫射击", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/8080/Kane_and_Lynch_Dead_Men/", "url": "", "why": "2007 年的犯罪片式双人分屏，剧情粗粝。没人会想到去玩，但两个人一起扛枪暴走很带感。续作《伏天》也在榜。", "evs": [{"q": "14.凯恩与林奇 …… 17.凯恩与林奇2：伏天", "like": 2905, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply136435648688", "src": "B站", "when": "2021 前后"}], "n": 1, "likes": 2905, "db": 0, "vids": ["BV16P411w7tE"], "shots": ["yt/Yu_5zNivrPg.jpg", "yt/NiG4w9DldXs.jpg", "yt/Kdd9rBAQ4LM.jpg"], "rank": 20}, {"name": "公路救赎", "en": "Road Redemption", "zh": "公路救赎", "people": "2 人（分屏）", "form": "分屏", "genre": "摩托竞速 + 肉搏", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/300380/Road_Redemption/", "url": "", "why": "边飙车边拿钢管砸人。分屏双人，整个社区里只有一个人提过。", "evs": [{"q": "18.公路救赎", "like": 2905, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply136435648688", "src": "B站", "when": "2021 前后"}], "n": 1, "likes": 2905, "db": 0, "vids": ["BV16P411w7tE"], "shots": ["yt/ex_GzelyWH0.jpg", "yt/boeDrWzs5HY.jpg"], "rank": 21}, {"name": "RICO", "en": "RICO", "zh": "RICO", "people": "2 人（同屏）", "form": "同屏", "genre": "快节奏突入射击", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/656700/RICO/", "url": "", "why": "FPS 突入清楼，一局十分钟，同屏双人。这类游戏基本没人知道。", "evs": [{"q": "2.RICO", "like": 2905, "url": "https://www.bilibili.com/video/BV16P411w7tE/#reply136435648688", "src": "B站", "when": "2021 前后"}], "n": 1, "likes": 2905, "db": 0, "vids": ["BV16P411w7tE"], "shots": ["yt/PscSO4hIbhw.jpg", "yt/Q-7MTSiAmtU.jpg"], "rank": 22}, {"name": "地球防卫军 5/6", "en": "Earth Defense Force 5 / 6", "zh": "地球防卫军 5、6", "people": "2 人（分屏）", "form": "分屏", "genre": "巨型虫子射击", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/1007040/EARTH_DEFENSE_FORCE_5/", "url": "", "why": "满屏虫子，两个人一起扫射到爽。本地双人模式很多人不知道有。", "evs": [{"q": "3、地球防卫军5和6（适合跟兄弟双打）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}], "n": 1, "likes": 1079, "db": 0, "vids": ["BV1LkgdztEW2"], "shots": ["yt/BqdqOB7ZuIE.jpg", "yt/gpRtcReCJgc.jpg"], "rank": 23}, {"name": "忍者神龟：施普林特的命运", "en": "TMNT: Splintered Fate", "zh": "忍者神龟：施普林特的命运", "people": "2–4 人（同屏）", "form": "同屏", "genre": "龟版《哈迪斯》", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/2995000/Teenage_Mutant_Ninja_Turtles_Splintered_Fate/", "url": "", "why": "就是双人版的哈迪斯。四个龟轮流死的那种，社区里说它「双人版哈迪斯」很准。", "evs": [{"q": "12、忍者神龟斯普林特的命运（双人版哈迪斯）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}], "n": 1, "likes": 1079, "db": 0, "vids": ["BV1LkgdztEW2"], "shots": ["yt/L7zfH43jx_I.jpg", "yt/DLxGTAetKkk.jpg"], "rank": 24}, {"name": "热血少女 1/2", "en": "River City Girls 1/2", "zh": "热血少女 1、2", "people": "2 人（同屏）", "form": "同屏", "genre": "横版清版", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/985780/River_City_Girls/", "url": "", "why": "两个女高中生一路打过去。手感扎实，清版双人做得很对味。", "evs": [{"q": "11、忍者神龟施莱德的复仇+热血少女1和2（街机横版过关）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}], "n": 1, "likes": 1079, "db": 0, "vids": ["BV1LkgdztEW2"], "shots": ["yt/E73He1DoaS4.jpg", "yt/kgFOVFu385c.jpg", "yt/QTKxPsq5aUk.jpg"], "rank": 25}, {"name": "三位一体 4/5", "en": "Trine 4 / Trine 5", "zh": "三位一体 4、5", "people": "2–3 人（同屏）", "form": "同屏", "genre": "物理解谜 + 横版动作", "cool": "★★☆☆☆", "steam": "https://store.steampowered.com/app/690640/Trine_4_The_Nightmare_Prince/", "url": "", "why": "虽然不算冷门，但 PC 上的本地双人体验确实顶级。如果你只玩过前三代，4 和 5 值得回。", "evs": [{"q": "1、三位一体4和5（画面、配乐、关卡设计都是一流）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}], "n": 1, "likes": 1079, "db": 0, "vids": ["BV1LkgdztEW2"], "shots": ["yt/75QIVhXRYkM.jpg", "yt/O_N5JI5WrhU.jpg"], "rank": 26}, {"name": "胡闹搬家", "en": "Moving Out 1/2", "zh": "胡闹搬家 1、2", "people": "2–4 人（同屏）", "form": "同屏", "genre": "物理搬家", "cool": "★★☆☆☆", "steam": "https://store.steampowered.com/app/996770/Moving_Out/", "url": "", "why": "能接受《胡闹厨房》就一定受得了这个。比厨房温和一点，也还是吵架游戏。", "evs": [{"q": "4、胡闹搬家1和2（能玩得进去胡闹厨房就能玩这个）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}], "n": 1, "likes": 1079, "db": 0, "vids": ["BV1LkgdztEW2"], "shots": ["yt/yTR2L__ENeE.jpg", "yt/aPubtvhMm3U.jpg", "yt/2FKd1ekBhZo.jpg"], "rank": 27}, {"name": "模拟山羊 3", "en": "Goat Simulator 3", "zh": "模拟山羊 3", "people": "2 人（同屏）", "form": "同屏", "genre": "沙雕开放世界", "cool": "★★☆☆☆", "steam": "https://store.steampowered.com/app/1812070/Goat_Simulator_3/", "url": "", "why": "恶搞开放世界，两个人一起拆场子。纯笑点游戏。", "evs": [{"q": "14、模拟山羊3（恶搞类开放世界游戏，很有意思）", "like": 1079, "url": "https://www.bilibili.com/video/BV1LkgdztEW2/#reply267121459648", "src": "B站", "when": "2024-08"}], "n": 1, "likes": 1079, "db": 0, "vids": ["BV1LkgdztEW2"], "shots": ["yt/jDPJxXE-eWQ.jpg", "yt/4JzJxcerseo.jpg", "yt/Kifyfbr9l5U.jpg"], "rank": 28}, {"name": "节奏医生", "en": "Rhythm Doctor", "zh": "节奏医生", "people": "2 人（同屏）", "form": "同屏", "genre": "单键节奏", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/774181/Rhythm_Doctor/", "url": "", "why": "一个键按节奏救人，双人模式是两个人各管一半的拍子。整个社区提过一次。", "evs": [{"q": "2、节奏医生，脱胎于节奏天国的玩法，全程只需要在节拍数到第七下时按下空格键", "like": 769, "url": "https://www.bilibili.com/video/BV1jT41127r4/#reply207155535040", "src": "B站", "when": "2021 前后"}], "n": 1, "likes": 769, "db": 0, "vids": ["BV1jT41127r4"], "shots": ["yt/dNOPuNhOT-k.jpg", "yt/rEVyBMp9p_A.jpg"], "rank": 29}, {"name": "英雄就义", "en": "Hero Siege", "zh": "英雄就义", "people": "2–4 人（同屏）", "form": "同屏", "genre": "刷子 ARPG", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/269210/Hero_Siege/", "url": "", "why": "像素刷子，同屏合作打怪刷装备。刷子类里比较少见的双人同屏。", "evs": [{"q": "07:13 - 英雄就义是一款爽快刷子类ARPG游戏，支持同屏合作，好评如潮", "like": 769, "url": "https://www.bilibili.com/video/BV1jT41127r4/#reply207155535040", "src": "B站", "when": "2021 前后"}], "n": 1, "likes": 769, "db": 0, "vids": ["BV1jT41127r4"], "shots": ["yt/BeqJWH9y8Qk.jpg", "yt/I3W0wPKuZ-4.jpg", "yt/vojE4C5SiqA.jpg"], "rank": 30}, {"name": "The Past Within", "en": "The Past Within", "zh": "The Past Within", "people": "2 人（同屏/双端）", "form": "双端各自看画面", "genre": "双人异步解谜", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/1513350/The_Past_Within/", "url": "", "why": "锈湖出品。一人看过去一人看现在，靠嘴描述画面。注意：需要两个设备，不是一台电脑。", "evs": [{"q": "6、The past within", "like": 712, "url": "https://www.bilibili.com/video/BV1aM55z5E19/#reply263903924337", "src": "B站", "when": "2024 前后"}], "n": 1, "likes": 712, "db": 0, "vids": ["BV1aM55z5E19"], "shots": ["yt/wqarZOX8tfg.jpg", "yt/gQ8K4WZH8uI.jpg", "yt/pIyH43wgpqM.jpg"], "rank": 31}, {"name": "送小羊回家：农场末日", "en": "Home Sheep Home: Farmageddon", "zh": "送小羊回家：农场末日", "people": "2–3 人（同屏）", "form": "同屏", "genre": "物理解谜平台", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/1498260/Home_Sheep_Home_Farmageddon_Party/", "url": "", "why": "《小羊肖恩》那三只羊，一起推一起叠。极度冷门，适合带新手。", "evs": [{"q": "送小羊回家：农场末日（1-3人同屏，合作聚会）", "like": 586, "url": "https://www.bilibili.com/video/BV1CdKizGEWX/#reply267233104256", "src": "B站", "when": "2025 前后"}], "n": 1, "likes": 586, "db": 0, "vids": ["BV1CdKizGEWX"], "shots": ["yt/WgbS8wVlaeI.jpg", "yt/Adoqq-KQfWY.jpg"], "rank": 32}, {"name": "Not Not", "en": "Not Not: A Brain Buster", "zh": "Not Not", "people": "2–4 人（分屏）", "form": "分屏", "genre": "反应力 / 反向指令", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/1407500/Not_Not/", "url": "", "why": "手机上玩过的那个反应游戏，PC 版能四个人分屏。一个指令里藏着反向，两个人一起输。", "evs": [{"q": "Not Not- A Brain Buster （1-4人分屏，反应力挑战）", "like": 586, "url": "https://www.bilibili.com/video/BV1CdKizGEWX/#reply267233104256", "src": "B站", "when": "2025 前后"}], "n": 1, "likes": 586, "db": 0, "vids": ["BV1CdKizGEWX"], "shots": ["yt/y9fZu6og0xQ.jpg", "yt/62h0S_WygsQ.jpg"], "rank": 33}, {"name": "鬼泣 3", "en": "Devil May Cry 3", "zh": "鬼泣 3", "people": "2 人（同屏 · 特定模式）", "form": "同屏", "genre": "硬核动作", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/6550/Devil_May_Cry_3_Special_Edition/", "url": "", "why": "绝大多数人都不知道鬼泣 3 能做双人同屏。实际上有双人模式，只是要自己去翻出来。", "evs": [{"q": "鬼泣3（双人同屏，传统act）", "like": 586, "url": "https://www.bilibili.com/video/BV1CdKizGEWX/#reply267233104256", "src": "B站", "when": "2025 前后"}], "n": 1, "likes": 586, "db": 0, "vids": ["BV1CdKizGEWX"], "shots": ["yt/73EPuloGOhw.jpg", "yt/0RhRGTXPLGU.jpg"], "rank": 34}, {"name": "非常英雄", "en": "Unruly Heroes", "zh": "非常英雄", "people": "2–4 人（同屏）", "form": "同屏", "genre": "西游题材横版闯关", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/692050/Unruly_Heroes/", "url": "", "why": "西游记题材的横版平台，四个人物切换。画面漂亮，玩的人不多。", "evs": [{"q": "非常英雄（1-4人同屏，西游题材，合作闯关）", "like": 586, "url": "https://www.bilibili.com/video/BV1CdKizGEWX/#reply267233104256", "src": "B站", "when": "2025 前后"}], "n": 1, "likes": 586, "db": 0, "vids": ["BV1CdKizGEWX"], "shots": ["yt/SASPuc36COE.jpg", "yt/80a4M-w13kk.jpg", "yt/TI7EDWM4Ph0.jpg"], "rank": 35}, {"name": "和班尼特福迪一起攻克难关（正经版：只管玩简单版）", "en": "Simple co-op picks from a low-skill request", "zh": "简单向：越简单越好（网友专门求过）", "people": "2 人", "form": "同屏", "genre": "低门槛合集", "cool": "★★★★☆", "steam": "—", "url": "", "why": "有个网友专门求助：「我哥们智力退化到七八岁，但他很喜欢跟我玩双人同屏游戏，有没有简单一点的推荐」。这条帖子说明一件事：如果你只是想轻松地玩，选低操作门槛的。", "evs": [{"q": "兄弟们，我有一个哥们得了精神病，智力退化到七八岁这样了，但他很喜欢跟我玩双人同屏游戏，有没有简单一点的推荐，越简单越好", "like": 308, "url": "https://www.bilibili.com/video/BV1Fj421R7ZW/#reply257077611809", "src": "B站", "when": "2024-06"}], "n": 1, "likes": 308, "db": 0, "vids": ["BV1Fj421R7ZW"], "shots": [], "rank": 36}, {"name": "4399 双人经典名", "en": "4399 classics", "zh": "4399 双人经典（雪人兄弟 / 森林冰火人 / 双箭头 等）", "people": "2 人（同屏）", "form": "同屏", "genre": "网页小游戏", "cool": "★★★★★", "steam": "—", "url": "", "why": "这一整条 249 赞的评论列了 30 多个名字，全是当年 4399 上两个人挤一台电脑的画面。现在已经不是 PC 主流，但如果你怀念那个手感，网页版还能打开。", "evs": [{"q": "双箭头 Q版泡泡堂 双刃战士 炎龙传说 疯狂小人乱斗 英雄大作战 造梦西游 火柴人打羽毛球 森林冰火人 武装风暴 双人旋转赛车 屁王兄弟 勇士的信仰 三国小镇 黄金矿工 西游战记 死神vs火影 拳皇 勇者之路 双偷盗宝 爆枪英雄 坏蛋冰淇淋 国王与勇士 海盗军团抢宝藏 混乱大枪战 神奇小妖怪 恐龙快打 兄弟奥特曼 蓝色药水 乞丐找老婆 胖胖猫山洞大冒险 雪人兄弟 地震小恐龙 冰冻双侠 超级企鹅冒险 超级米拉奇战记", "like": 249, "url": "https://www.bilibili.com/video/BV1H4411g7r3/#reply177487538496", "src": "B站", "when": "2017 前后"}], "n": 1, "likes": 249, "db": 0, "vids": ["BV1H4411g7r3"], "shots": [], "rank": 37}, {"name": "失落城堡", "en": "Lost Castle", "zh": "失落城堡", "people": "2 人（同屏）", "form": "同屏", "genre": "横版动作肉鸽", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/434650/Lost_Castle/", "url": "", "why": "国产肉鸽，双人同屏刷装备。轻量，一晚上能刷几轮。", "evs": [{"q": "推荐一下和女朋友玩过的 泡姆泡姆 咩咩启示录 失落城堡 捣蛋鹅", "like": 229, "url": "https://www.bilibili.com/video/BV1aM55z5E19/#reply283255986448", "src": "B站", "when": "2025 前后"}], "n": 1, "likes": 229, "db": 0, "vids": ["BV1aM55z5E19"], "shots": ["yt/0lah1Bfptbw.jpg", "yt/8kVoWv-SHE8.jpg", "yt/jjOEIXwjKxk.jpg"], "rank": 38}, {"name": "神秘载具合作（3 人同屏，名字待查）", "en": "待核实", "zh": "2010 年前后的载具合作游戏", "people": "3 人", "form": "同屏", "genre": "载具合作", "cool": "★★★★★", "steam": "—", "url": "", "why": "这条 26 赞评论讲的是 2010 年的一款载具游戏：一个人主驾、两个人在高位当炮手，还有合体变形。他描述得太具体了，不像编的——但具体是哪一作我没核实出来，标在这里当线索。", "evs": [{"q": "有个3人vs，主驾和两个高位炮手，我们仨经常开这个，后面还有nevec的合体vs（一个蜘蛛+一个坦克变形合体），几个人合作操作列车炮打redeye，太爽了", "like": 26, "url": "https://www.bilibili.com/video/BV1VJibBfEP2/#reply287897643008", "src": "B站", "when": "2024 前后"}], "n": 1, "likes": 26, "db": 0, "vids": ["BV1VJibBfEP2"], "shots": [], "rank": 39}, {"name": "回旋镖派对", "en": "Boomerang Fu", "zh": "回旋镖派对", "people": "2–6 人（同屏）", "form": "同屏", "genre": "回旋镖乱斗", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/965680/Boomerang_Fu/", "url": "", "why": "食物小动物互相丢回旋镖，一局两分钟。人越多越乱越好笑。", "evs": [{"q": "超级欢乐", "like": 4, "url": "https://www.bilibili.com/video/BV1em3EzpEsv/#reply268768674993", "src": "B站", "when": "2025-07-25"}], "n": 1, "likes": 4, "db": 0, "vids": ["BV1em3EzpEsv"], "shots": ["yt/UKNl2V6YODQ.jpg", "yt/Hs3bkUuUoP0.jpg"], "rank": 40}, {"name": "大头盔英雄", "en": "Big Helmet Heroes", "zh": "大头盔英雄", "people": "2 人（同屏）", "form": "同屏", "genre": "卡通 Beat'em up", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/2397250/Big_Helmet_Heroes/", "url": "", "why": "2025 年的横版群殴，画风卡通，能双人一路推。新，但讨论量还很小。", "evs": [{"q": "大头盔英雄", "like": 3, "url": "https://www.bilibili.com/video/BV1em3EzpEsv/#reply282232593089", "src": "B站", "when": "2025-12-02"}], "n": 1, "likes": 3, "db": 0, "vids": ["BV1em3EzpEsv"], "shots": ["yt/ZQUaeAdn8Pk.jpg", "yt/mFY_KP-ZpSk.jpg"], "rank": 41}, {"name": "魔能2", "en": "Magicka 2", "zh": "魔能2", "people": "2–4 人（同屏）", "form": "同屏", "genre": "元素组合施法", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/355400/Magicka_2/", "url": "", "why": "八种元素自由拼出法术，队友会被自己人炸死。老游戏，但玩起来比看上去新。", "evs": [{"q": "魔能2，传说法师2", "like": 1, "url": "https://www.bilibili.com/video/BV18fxVz6ERX/#reply317408379648", "src": "B站", "when": "2026-09-14"}], "n": 1, "likes": 1, "db": 0, "vids": ["BV18fxVz6ERX"], "shots": ["yt/DGPS0J3HJ68.jpg", "yt/7UEGas63yL8.jpg"], "rank": 42}, {"name": "Pode", "en": "Pode", "zh": "Pode", "people": "2 人（同屏）", "form": "同屏", "genre": "双人环境解谜", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/944080/Pode/", "url": "", "why": "石头和星星互相给对方铺路。安静、禅意，适合不吵架地一起解谜。合作至少需要一个手柄。", "evs": [{"q": "再推荐pode", "like": 0, "url": "https://www.douban.com/group/topic/291560594/", "src": "豆瓣", "when": "2023-10-03 · 豆瓣·女性玩家联合会「除了双人成行，有没有可以在一台电脑上玩的双人游戏？」"}], "n": 1, "likes": 0, "db": 1, "vids": [], "shots": ["yt/MiKKVYOACrI.jpg", "yt/t1JqD7ub6xo.jpg"], "rank": 43}, {"name": "死亡平方", "en": "Death Squared", "zh": "死亡平方", "people": "2 人（同屏）", "form": "同屏", "genre": "移动方块解谜", "cool": "★★★★★", "steam": "https://store.steampowered.com/app/262870/Death_Squared/", "url": "", "why": "两个机器人踩机关，一步错了就炸。会吵架的那种解谜，但全程安静好收敛。", "evs": [{"q": "9.Death Squared", "like": 0, "url": "https://www.bilibili.com/video/BV1144y1p7Vo/#reply100568047616", "src": "B站", "when": "2022-01-31"}], "n": 1, "likes": 0, "db": 0, "vids": ["BV1144y1p7Vo"], "shots": ["yt/h8VXaEFZ1Pk.jpg", "yt/qbjr4cax_B4.jpg", "yt/Kzf9zUFWkSo.jpg"], "rank": 44}, {"name": "トントン相撲", "en": "Tonton Sumo", "zh": "咚咚相扑", "people": "2 人（同屏）", "form": "同屏", "genre": "点击时机对战的相扑", "cool": "★★★★★", "steam": "", "url": "https://www.freem.ne.jp/dl/win/35200", "why": "一句话说清：「ふたりで：友達と同じ画面で本場所」。10 种技能会自动变化，节奏和时机博弈，2026-09 刚上线，是最新的一批。日文独占，无英中。", "evs": [{"q": "ふたりで：友達と同じ画面で本場所", "like": 0, "url": "https://www.freem.ne.jp/win/game/35200", "src": "ふりーむ", "when": "2026-09 收录"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/35200_0.jpg"], "rank": 45}, {"name": "ミチル見参！運気奪還 侍と魔女の珍道中", "en": "Michiru Kenzan", "zh": "米切尔见参！运气夺还 武士与魔女的奇游记", "people": "2 人（同屏）", "form": "同屏", "genre": "和风横版动作 + 射击", "cool": "★★★★★", "steam": "", "url": "https://www.freem.ne.jp/dl/win/29119", "why": "武士米切尔近战、魔女诺里斯远程，两个角色分工互补，Ver1.02 才加上双人模式。页面明写「■プレイ人数 1～2人」。日文独占。", "evs": [{"q": "２人用モード実装！…■プレイ人数 1～2人 (Ver1.02より２人用モード実装！)", "like": 0, "url": "https://www.freem.ne.jp/win/game/29119", "src": "ふりーむ", "when": "2022-10-03"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/29119_0.jpg", "fm/29119_1.jpg", "fm/29119_2.jpg", "fm/29119_3.jpg", "fm/29119_4.jpg"], "rank": 46}, {"name": "押寿司", "en": "Oshizushi", "zh": "押寿司", "people": "2 人（必须双手柄）", "form": "同屏", "genre": "握寿司本地对战", "cool": "★★★★★", "steam": "", "url": "https://www.freem.ne.jp/dl/win/32468", "why": "**必须两个手柄，键盘不能玩**。作者写得非常明确：本地对战专用、不支持联机、有音量/全屏/改键功能。适合两人并排坐着抢节奏。日文独占。", "evs": [{"q": "※ローカル対戦専用です。インターネット対戦には対応していません。※キーボードでは操作できません。コントローラーをご準備ください", "like": 0, "url": "https://www.freem.ne.jp/win/game/32468", "src": "ふりーむ", "when": "2024-05-25"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/32468_0.jpg", "fm/32468_1.jpg", "fm/32468_2.jpg", "fm/32468_3.jpg", "fm/32468_4.jpg"], "rank": 47}, {"name": "対戦うどん祭り", "en": "Udon Festival", "zh": "对战乌冬祭", "people": "最多 4 人（一台 PC）", "form": "同屏", "genre": "60 秒抢乌冬混战", "cool": "★★★★★", "steam": "", "url": "https://www.freem.ne.jp/dl/win/23950", "why": "一台 PC 四人对战，抱着「生物」喂乌冬，椰子炸弹爆开会把分数砍半。作者原文「ＰＣ１台で最大４人のローカル対戦！」。国内基本零讨论。日文独占。", "evs": [{"q": "最大4人対戦！うどん争奪バトル ＰＣ１台で最大４人のローカル対戦！４人のプレイヤーが「生き物」を抱えて動き回り、６０秒間で多くの「うどん」を食べさせよう。", "like": 0, "url": "https://www.freem.ne.jp/win/game/23950", "src": "ふりーむ", "when": "2020-09-16"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/23950_0.jpg", "fm/23950_1.jpg", "fm/23950_2.jpg"], "rank": 48}, {"name": "- Luck&Pluck -", "en": "Luck & Pluck", "zh": "- Luck & Pluck -", "people": "多人（可一人一键盘/一手柄）", "form": "同屏", "genre": "卡牌吃墩对战", "cool": "★★★★★", "steam": "", "url": "https://www.freem.ne.jp/dl/win/3904", "why": "2012 年的老东西，但做法聪明：能给每个玩家分别分配键盘/鼠标/手柄，所以多个人同时坐在一台机器前也不会手忙脚乱。同分时看谁手里牌多。日文独占。", "evs": [{"q": "ローカル対戦のみですが、各プレイヤーにキーボード/マウス/パッドを割り当てられるので、複数の同時プレイでもスムーズなゲーム進行が可能です", "like": 0, "url": "https://www.freem.ne.jp/win/game/3904", "src": "ふりーむ", "when": "2012-07-06"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/3904_0.jpg", "fm/3904_1.jpg", "fm/3904_2.jpg", "fm/3904_3.jpg", "fm/3904_4.jpg"], "rank": 49}, {"name": "マグロ職人～ひたすら握るマグロ～", "en": "Maguro Master", "zh": "金枪鱼职人～只管握金枪鱼～", "people": "2 人（一个键盘）", "form": "同屏", "genre": "握寿司竞速对战", "cool": "★★★★★", "steam": "", "url": "https://www.freem.ne.jp/dl/win/15033", "why": "更新日志里那句最实在：「2P対戦実装（一つのキーボードで2人遊べます！）」。一个键盘挤着打，手柄都省了。日文独占。", "evs": [{"q": "2P対戦実装（一つのキーボードで2人遊べます！）", "like": 0, "url": "https://www.freem.ne.jp/win/game/15033", "src": "ふりーむ", "when": "2017-06-13"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/15033_0.jpg", "fm/15033_1.jpg", "fm/15033_2.jpg", "fm/15033_3.jpg", "fm/15033_4.jpg"], "rank": 50}, {"name": "ガーディアンヒーローズ", "en": "Guardian Heroes", "zh": "守护英雄", "people": "多人同屏", "form": "同屏", "genre": "横版清关 + RPG 要素", "cool": "★★★★★", "steam": "", "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/56", "why": "5ch 40 代帖里被列进「两个人能玩一晚上」的六款之一。**Switch 和 Steam 都没有**，只有 Xbox 系主机能玩，买 360 的 HD 版向后兼容，515 日元。日文和英文界面，无中文。", "evs": [{"q": "ガントレット ディアブロ ガーディアンヒーローズ D&D 悪魔城HOD キャッスルクラッシャーズ", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/56", "src": "5ch", "when": "2026-09-19"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/ZidcauHX9Bk.jpg", "yt/Mp8dYdze23o.jpg"], "rank": 51}, {"name": "ダンジョンエクスプローラー", "en": "Dungeon Explorer", "zh": "迷宫探险者", "people": "最多 5 人同屏", "form": "同屏", "genre": "PC Engine 动作 RPG", "cool": "★★★★★", "steam": "", "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/25", "why": "PC Engine 名作，1-5 人同屏。**但现在很难玩到**：Wii、Wii U 的 Virtual Console 和 PS3、PSP 的 Game Archives 渠道已经全关了，只能淘二手实机卡带或 Sega-CD 版。日文独占。", "evs": [{"q": "ダンジョンエクスプローラー", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/25", "src": "5ch", "when": "2026-09-19"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/Vk3UcfX-ndI.jpg", "yt/9BV3HBogIHU.jpg", "yt/LDfIQg6kgM8.jpg"], "rank": 52}, {"name": "ダンジョンエクスプローラー", "en": "Dungeon Explorer", "zh": "迷宫探险者", "people": "1-5 人（同屏）", "form": "同屏", "genre": "RPG 式清版动作", "cool": "★★★★★", "steam": "", "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/25", "why": "PC Engine 时代允许多人同屏的 RPG 式清版动作，最多 5 人一起下地下城，每人自己选职业。冷门程度数一数二。但**想玩很麻烦**：Wii/Wii U 的 VC 通道、PS3/PSP 的 Game Archives、Windows 版全部下架了，现在只能淘二手卡带或二手主机。无中文。", "evs": [{"q": "ダンジョンエクスプローラー", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/25", "src": "5ch", "when": "2026-09-19"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/Vk3UcfX-ndI.jpg", "yt/9BV3HBogIHU.jpg", "yt/LDfIQg6kgM8.jpg"], "rank": 53}, {"name": "クインティ", "en": "Quinty", "zh": "昆蒂", "people": "2 人（同屏）", "form": "同屏", "genre": "翻地板解谜动作", "cool": "★★★★★", "steam": "", "url": "https://krsw.5ch.io/test/read.cgi/steam/1633242220/12", "why": "1989 年 GAME FREAK 的作品——就是后来做宝可梦那家，宝可梦之前他们做的就是这个。翻地板让敌人摔倒、再撞墙消灭，两个人配合着清版。**现在还能正当地玩到**：2026-04-09 进了 Nintendo Switch Online 的 FC 合集，订阅就有。日文和英文，无中文。", "evs": [{"q": "クインティ", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/steam/1633242220/12", "src": "5ch", "when": "2021-10-07"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/OEcMy-1oL-0.jpg", "yt/l7v7jW0Kam4.jpg"], "rank": 54}, {"name": "Figment 2: Creed Valley", "en": "Figment 2: Creed Valley", "zh": "Figment 2（中文名待核实）", "people": "2 人（同屏）", "form": "同屏", "genre": "音乐解谜冒险", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/1085220/Figment_2_Creed_Valley/", "url": "", "why": "第二位玩家控制伙伴 Piper。音乐和美术都在线，剧情向。需要手柄。", "evs": [{"q": "《figment 2》今年新出的解谜", "like": 0, "url": "https://www.douban.com/group/topic/297080864/", "src": "豆瓣", "when": "2023-10-31 · 豆瓣·女性玩家联合会「推荐一些多人/双人游戏+求推荐～」"}], "n": 1, "likes": 0, "db": 1, "vids": [], "shots": ["yt/-4Okz_IfZdA.jpg", "yt/Ob-aBsApNmk.jpg", "yt/yqOCrl9BryQ.jpg"], "rank": 55}, {"name": "变形时刻", "en": "Shift Happens", "zh": "变形时刻", "people": "2 人（同屏）", "form": "同屏", "genre": "可变体型解谜平台", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/359240/Shift_Happens/", "url": "", "why": "两只史莱姆交换体型大小过关。体量小、机制化，典型被埋没的解谜佳作。", "evs": [{"q": "8.Shift Happens", "like": 0, "url": "https://www.bilibili.com/video/BV1144y1p7Vo/#reply100568047616", "src": "B站", "when": "2022-01-31"}], "n": 1, "likes": 0, "db": 0, "vids": ["BV1144y1p7Vo"], "shots": ["yt/dp6hBWu6t-I.jpg", "yt/mPwxgYex_0w.jpg"], "rank": 56}, {"name": "天体", "en": "Heavenly Bodies", "zh": "天体", "people": "2 人（同屏）", "form": "同屏", "genre": "失重太空作业", "cool": "★★★★☆", "steam": "https://store.steampowered.com/app/1138850/Heavenly_Bodies/", "url": "", "why": "太空站里拧螺丝、接线，用两只机械臂抓杆移动。手忙脚乱但很美。", "evs": [{"q": "7.Heavenly Bodies", "like": 0, "url": "https://www.bilibili.com/video/BV1144y1p7Vo/#reply100568047616", "src": "B站", "when": "2022-01-31"}], "n": 1, "likes": 0, "db": 0, "vids": ["BV1144y1p7Vo"], "shots": ["yt/m8ogIEQGvH0.jpg", "yt/HeBRnhifeug.jpg", "yt/3bklZWCm8P0.jpg"], "rank": 57}, {"name": "遊戯牢", "en": "Yugirou", "zh": "游戏牢", "people": "2 人（同屏）", "form": "同屏", "genre": "动作闯关 / Boss 战", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/7733", "why": "页面直接标「【2人同時プレイ可】」。一堆难缠 Boss，靠技巧和机关推进。注意标的是 XP 环境，Win10 未验证，下之前先想好。日文独占。", "evs": [{"q": "【2人同時プレイ可】", "like": 0, "url": "https://www.freem.ne.jp/win/game/7733", "src": "ふりーむ", "when": "2014-10-12"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/7733_0.jpg", "fm/7733_1.jpg", "fm/7733_2.jpg", "fm/7733_3.jpg", "fm/7733_4.jpg"], "rank": 58}, {"name": "タクティクスデュエル", "en": "Tactics Duel", "zh": "战术对决", "people": "2 人（本地对战）", "form": "同屏", "genre": "自建兵种与地图的战棋", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/17414", "why": "能自己编兵种和地图，还能存档分享给别人。「オンライン対戦はできないのですが、ご友人やご家族とローカル対戦ができます」。浏览器版，不用装。日文独占。", "evs": [{"q": "オンライン対戦はできないのですが、ご友人やご家族とローカル対戦ができます。（対ＣＰＵも可能）", "like": 0, "url": "https://www.freem.ne.jp/win/game/17414", "src": "ふりーむ", "when": "2018-04-09"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/17414_0.jpg", "fm/17414_1.jpg", "fm/17414_2.jpg", "fm/17414_3.jpg", "fm/17414_4.jpg"], "rank": 59}, {"name": "バトルホッケー", "en": "Battle Hockey", "zh": "对战冰球", "people": "2 人（同屏）", "form": "同屏", "genre": "气垫球对战", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/7797", "why": "气垫球，中间一根横杆撞球会掉 9 种道具，先到 7 分赢。原文「2P対戦のホッケーゲームです。7点を先に取った方が勝ち」。日文独占。", "evs": [{"q": "2P対戦のホッケーゲームです。7点を先に取った方が勝ち", "like": 0, "url": "https://www.freem.ne.jp/win/game/7797", "src": "ふりーむ", "when": "2014-10-25"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/7797_0.jpg", "fm/7797_1.jpg", "fm/7797_2.jpg"], "rank": 60}, {"name": "コンゴボンチ", "en": "Congo Bonchi", "zh": "刚果邦奇", "people": "2 人（同屏）", "form": "同屏", "genre": "80 年代风跳跃动作", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/2700", "why": "作者自己说「８０年代前期頃のジャンプアクションを意識して制作」。两人能互相使坏，野生动物的障碍塞满整张图。2010 年的免费小游戏。日文独占。", "evs": [{"q": "８０年代前期頃のジャンプアクションを意識して制作しました。二人同時プレイで妨害ができたり、数々の野生動物や障害が満載であることが特徴です", "like": 0, "url": "https://www.freem.ne.jp/win/game/2700", "src": "ふりーむ", "when": "2010-05-17"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/2700_0.jpg"], "rank": 61}, {"name": "MIKU'n POP＃", "en": "Mikun Pop Sharp", "zh": "MIKU'n POP＃", "people": "2 人（离线同屏）", "form": "同屏", "genre": "固定画面动作 / 街机复古", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/5676", "why": "「オフライン２人同時プレイ可能です。・ジョイパッド使用可能です」。初音/铃/露卡换角，复古街机味。带 Freegames for Global 标签但没见英文界面说明，**语言待核实**。", "evs": [{"q": "・オフライン２人同時プレイ可能です。・ジョイパッド使用可能です", "like": 0, "url": "https://www.freem.ne.jp/win/game/5676", "src": "ふりーむ", "when": "2013-10-06"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/5676_0.jpg", "fm/5676_1.jpg", "fm/5676_2.jpg", "fm/5676_3.jpg", "fm/5676_4.jpg"], "rank": 62}, {"name": "癒し系アクションゲーム", "en": "Iyashi-kei Action", "zh": "治愈系动作游戏", "people": "最多 4 人对战（可 2 人）", "form": "分屏", "genre": "3D 动作射击", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/509", "why": "2005 年的老游戏，「対戦は画面分割により4人まで対戦可能です」。带 Global 标签但无英中说明，**语言待核实**。", "evs": [{"q": "対戦は画面分割により4人まで対戦可能です", "like": 0, "url": "https://www.freem.ne.jp/win/game/509", "src": "ふりーむ", "when": "2005-05-09"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/509_0.jpg"], "rank": 63}, {"name": "Sonic Sisters New Version", "en": "Sonic Sisters", "zh": "Sonic Sisters 新版", "people": "2 人（同屏）", "form": "同屏", "genre": "横版空战射击", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/22895", "why": "三个角色特性各异，页面只有一句「二人同時プレイも可」。日文独占。", "evs": [{"q": "二人同時プレイも可", "like": 0, "url": "https://www.freem.ne.jp/win/game/22895", "src": "ふりーむ", "when": "2020-05-17"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/22895_0.jpg", "fm/22895_1.jpg", "fm/22895_2.jpg", "fm/22895_3.jpg", "fm/22895_4.jpg"], "rank": 64}, {"name": "マイナー２０１１", "en": "Miner 2011", "zh": "矿工 2011", "people": "2 人（同屏）", "form": "同屏", "genre": "矿坑跳跃探索", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/3615", "why": "滑梯、电梯、绳索全用上，两人能互相使坏。和「コンゴボンチ」是同作者 Shimaco，风格一致，选一个玩就行。日文独占。", "evs": [{"q": "二人同時プレイで妨害ができたり", "like": 0, "url": "https://www.freem.ne.jp/win/game/3615", "src": "ふりーむ", "when": "2012-01-21"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/3615_0.jpg"], "rank": 65}, {"name": "Repaint", "en": "Repaint", "zh": "重涂", "people": "2 人（对战模式）", "form": "同屏", "genre": "俄罗斯方块 × 噗哟噗哟式落块对战", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/19244", "why": "10 级难度，本地对战。「２人用のゲームモードでは、２人で対戦します」。浏览器版。日文独占。", "evs": [{"q": "２人用のゲームモードでは、２人で対戦します", "like": 0, "url": "https://www.freem.ne.jp/win/game/19244", "src": "ふりーむ", "when": "2018-12-31"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/19244_0.jpg", "fm/19244_1.jpg", "fm/19244_2.jpg", "fm/19244_3.jpg", "fm/19244_4.jpg"], "rank": 66}, {"name": "ドラゴンバトル2", "en": "Dragon Battle 2", "zh": "龙之战 2", "people": "2 人（对战）", "form": "同屏", "genre": "对战格斗", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/31896", "why": "「◎モード解説 1P VS 2P 2人対戦モードです」。另有 1P vs CPU 和生存模式。日文独占。", "evs": [{"q": "◎モード解説 1P VS 2P 2人対戦モードです。2人でバトルできます", "like": 0, "url": "https://www.freem.ne.jp/win/game/31896", "src": "ふりーむ", "when": "2023-12-22"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/31896_0.jpg", "fm/31896_1.jpg", "fm/31896_2.jpg"], "rank": 67}, {"name": "ボムパクマン", "en": "BomPakman", "zh": "炸弹吃豆人", "people": "2 人合作 / 最多 4 人对战", "form": "同屏", "genre": "炸弹人式", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/2596", "why": "作者自己吐槽「这就是炸弹人的山寨」。原文「最大2人協力プレイ可能のノーマルモードと、最大4人で対戦できるバトルモード」。2010 年。日文独占。", "evs": [{"q": "最大2人協力プレイ可能のノーマルモードと、最大4人で対戦できるバトルモード", "like": 0, "url": "https://www.freem.ne.jp/win/game/2596", "src": "ふりーむ", "when": "2010-02-22"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/2596_0.jpg"], "rank": 68}, {"name": "白い人", "en": "Shiroi Hito", "zh": "白衣人", "people": "2 人（合作 / 对战）", "form": "同屏", "genre": "横版动作", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/20610", "why": "三种战斗风格随时切，10-15 分钟打完一轮，适合不想投入太多时间的晚上。原文「２人プレイで協力、対戦もできます」。日文独占。", "evs": [{"q": "２人プレイで協力、対戦もできます", "like": 0, "url": "https://www.freem.ne.jp/win/game/20610", "src": "ふりーむ", "when": "2019-07-16"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/20610_0.jpg"], "rank": 69}, {"name": "アイスクンのウルトラ野球パーティ", "en": "Aisukun Ultra Baseball Party", "zh": "冰淇淋君超级棒球派对", "people": "2 人（专用，无 CPU 模式）", "form": "同屏", "genre": "鼠标点击棒球对战", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/34838", "why": "110KB 的小东西，纯鼠标点。原文「2人プレイ専用。…※このゲームは2人プレイ向けです。CPU対決モードはありません」。2026-05 的新作。日文独占。", "evs": [{"q": "アイスクンの野球ゲーム。2人プレイ専用。…※このゲームは2人プレイ向けです。CPU対決モードはありません", "like": 0, "url": "https://www.freem.ne.jp/win/game/34838", "src": "ふりーむ", "when": "2026-05-18"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/34838_0.jpg"], "rank": 70}, {"name": "SxS", "en": "SxS", "zh": "SxS", "people": "2 人（同屏）", "form": "同屏", "genre": "2D 射击 × 足球", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/35234", "why": "「2Dシューティング×サッカー 初投稿で2人プレイのミニゲームです」。2026-09，浏览器版，作者初投稿。日文独占。", "evs": [{"q": "2Dシューティング×サッカー 初投稿で2人プレイのミニゲームです", "like": 0, "url": "https://www.freem.ne.jp/win/game/35234", "src": "ふりーむ", "when": "2026-09-20"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/35234_0.jpg"], "rank": 71}, {"name": "放屁戦記", "en": "Houhi Senki", "zh": "放屁战记", "people": "2 人（作者说「大概可以」）", "form": "同屏", "genre": "放屁题材高难度动作", "cool": "★★★★☆", "steam": "", "url": "https://www.freem.ne.jp/dl/win/15031", "why": "作者原文是「二人同時プレイも・・・たぶん可能です」——他自己都不敢保证。当乐子看，别当正经双人游戏买。日文独占。", "evs": [{"q": "二人同時プレイも・・・たぶん可能です", "like": 0, "url": "https://www.freem.ne.jp/win/game/15031", "src": "ふりーむ", "when": "2017-06-12"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["fm/15031_0.jpg", "fm/15031_1.jpg", "fm/15031_2.jpg", "fm/15031_3.jpg", "fm/15031_4.jpg"], "rank": 72}, {"name": "Henry Halfhead", "en": "Henry Halfhead", "zh": "半头亨利", "people": "2 人（同屏）", "form": "同屏", "genre": "附身物体解谜合作", "cool": "★★★★☆", "steam": "", "url": "https://service.webgoto.net/switch-wm/t268994/", "why": "附身到各种家具和物件上过关，无厘头又有点混乱。**有中文**。Steam / Switch 在售。原话「Henry Halfheadかなり良いぞ くだらなくてちょいカオス」。同样来自汇总站，不是 5ch 原帖。", "evs": [{"q": "Henry Halfheadかなり良いぞ くだらなくてちょいカオス", "like": 0, "url": "https://service.webgoto.net/switch-wm/t268994/", "src": "转载站", "when": "2026"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/pedtxnmvxdU.jpg", "yt/JIXgKgAygfc.jpg", "yt/NpbDrfOBjFw.jpg"], "rank": 73}, {"name": "ガーディアンヒーローズ", "en": "Guardian Heroes", "zh": "守护英雄", "people": "1-6 人（同屏混战/合作）", "form": "同屏", "genre": "横版清版动作 + RPG", "cool": "★★★★", "steam": "", "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/56", "why": "Treasure 出品，土星时代最强的横版清版之一——一条线上最多 6 个角色乱斗，还带升级和分支剧情。有个 40 代网友一口气报了 6 款「两人一晚上能玩」的老游戏，它是其中之一。现在能玩：Xbox 360 的 HD 重制版在 Xbox One/Series 上还支持向下兼容，515 日元。Steam 和 Switch 都没有，无中文。", "evs": [{"q": "ガントレット ディアブロ ガーディアンヒーローズ D&D 悪魔城HOD キャッスルクラッシャーズ", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/ghard/1789780491/56", "src": "5ch", "when": "2026-09-19"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/ZidcauHX9Bk.jpg", "yt/Mp8dYdze23o.jpg"], "rank": 74}, {"name": "负鼠闹翻天", "en": "Pizza Possum", "zh": "负鼠闹翻天", "people": "2 人（同屏）", "form": "同屏", "genre": "街机潜行偷吃", "cool": "★★★☆☆", "steam": "https://store.steampowered.com/app/1951230/Pizza_Possum/", "url": "", "why": "两只动物在小镇偷吃躲避守卫。短、轻松、不考验操作，适合休闲一晚。", "evs": [{"q": "最近刚上的负鼠闹翻天！", "like": 0, "url": "https://www.douban.com/group/topic/291560594/", "src": "豆瓣", "when": "2023-10-06 · 豆瓣·女性玩家联合会「除了双人成行，有没有可以在一台电脑上玩的双人游戏？」"}], "n": 1, "likes": 0, "db": 1, "vids": [], "shots": ["yt/DosNmKqhnEM.jpg", "yt/F5YWE1R_QW0.jpg", "yt/i_L0PMBGFqo.jpg"], "rank": 75}, {"name": "ストレッチャーズ", "en": "The Stretchers", "zh": "担架小队", "people": "2 人（同屏）", "form": "同屏", "genre": "物理沙雕合作救人", "cool": "★★★☆☆", "steam": "", "url": "https://krsw.5ch.io/test/read.cgi/ghard/1637453818/8", "why": "两个人抬一副担架救人，一人抓头一人抓脚，不沟通救不了。**有简体中文**（任天堂第一方）。Switch eShop 在售。这条我核到了原文：「ストレッチャーズ（switch）」。", "evs": [{"q": "ストレッチャーズ（switch）", "like": 0, "url": "https://krsw.5ch.io/test/read.cgi/ghard/1637453818/8", "src": "5ch", "when": "2021-11-21"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/nKhJsE7Tcbk.jpg", "yt/ev74KNlWMSw.jpg", "yt/ykvFlf3Ti7Y.jpg"], "rank": 76}, {"name": "PHOGS!", "en": "PHOGS!", "zh": "双头狗", "people": "2 人（同屏）", "form": "同屏", "genre": "双头狗解谜", "cool": "★★★☆☆", "steam": "", "url": "https://service.webgoto.net/switch-wm/t268994/", "why": "一只两条脖子的狗，两个头各由一个人控制，身体共享——天生就是给两个人玩的。**有中文**。Switch / Steam / Xbox 都有。来源是 Switch 海外反应汇总站，不是 5ch 原帖，看着当参考。", "evs": [{"q": "PHOGS 、The Stretchers、Heave Hoあたり", "like": 0, "url": "https://service.webgoto.net/switch-wm/t268994/", "src": "转载站", "when": "2026"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/RulEj0l5wzc.jpg", "yt/u_zepEYalms.jpg", "yt/owmzsAjjiV4.jpg"], "rank": 77}, {"name": "Heavenly Bodies", "en": "Heavenly Bodies", "zh": "天体之躯", "people": "2 人（同屏）", "form": "同屏", "genre": "无重力太空舱物理合作", "cool": "★★★☆☆", "steam": "", "url": "https://service.webgoto.net/switch-wm/t268994/", "why": "无重力环境下一人一只机械手抓按钮，飘着对接零件，非常容易手忙脚乱。**有中文**。Steam / PS / Switch 在售。这条评论口碑最好：「Heavenly Bodies は相方次第で爆笑ゲーになる」。", "evs": [{"q": "Heavenly Bodies は相方次第で爆笑ゲーになる 無重力で四苦八苦するのが最高", "like": 0, "url": "https://service.webgoto.net/switch-wm/t268994/", "src": "转载站", "when": "2026"}], "n": 1, "likes": 0, "db": 0, "vids": [], "shots": ["yt/m8ogIEQGvH0.jpg", "yt/HeBRnhifeug.jpg", "yt/3bklZWCm8P0.jpg"], "rank": 78}];
 const VIDEOS = {"BV1YM411n7xP": {"title": "情侣本地双人【Kalimba|克林巴】 娱乐搞笑试玩", "pic": "http://i1.hdslb.com/bfs/archive/d8957c32a2498dfe45f40ce44ebab91c86a77aad.jpg", "duration": 2061, "owner": "Pi狐_Zhi鼠", "aid": 524417557, "view": 16695, "like": 54, "pubdate": 1676625022}, "BV16P411w7tE": {"title": "【同屏游戏】一台电脑好多人玩，20款能双人多人同屏游玩的游戏！", "pic": "http://i0.hdslb.com/bfs/archive/a326b3859c69290f3bdc4e1727a9580a280437fd.jpg", "duration": 686, "owner": "光荣的朴素", "aid": 304710887, "view": 656979, "like": 7833, "pubdate": 1667707200}, "BV1LkgdztEW2": {"title": "有仇当场报 个人最喜欢的10款双人游戏！", "pic": "http://i2.hdslb.com/bfs/archive/4cb505412493e2009399b1d51a4e13d1b34a7b84.jpg", "duration": 534, "owner": "易铭小疯子", "aid": 114762616676188, "view": 826431, "like": 21255, "pubdate": 1751139087}, "BV1Fj421R7ZW": {"title": "游戏集锦！24款适合双人同屏游玩的精品游戏！", "pic": "http://i0.hdslb.com/bfs/archive/0b091dcb464a725f08148b8cc2d38dd68be84474.jpg", "duration": 228, "owner": "光荣的朴素", "aid": 1652472436, "view": 314600, "like": 1568, "pubdate": 1711512000}, "BV1BN4y1p7QN": {"title": "假期快到了，分享5款本地联机游戏，除了双人成行还有什么好玩？", "pic": "http://i2.hdslb.com/bfs/archive/a89fe13e3403b999c1ae6604bbeaf9eb976278e6.jpg", "duration": 132, "owner": "胖叔打游戏", "aid": 878901622, "view": 36763, "like": 267, "pubdate": 1705496309}, "BV1B841117Y8": {"title": "10款双人联机手游，面对面的乐趣，TOP10双人/多人联机手机游戏推荐", "pic": "http://i1.hdslb.com/bfs/archive/7a5466555869157341b76dfade63edc4bc9e1aef.jpg", "duration": 522, "owner": "三栗三斗", "aid": 234089626, "view": 654580, "like": 9526, "pubdate": 1696049358}, "BV1aM55z5E19": {"title": "推荐十款超级好玩的双人同屏游戏", "pic": "http://i1.hdslb.com/bfs/archive/0f08f49ee6df917900e4cacb6b97d060589d9d8e.jpg", "duration": 579, "owner": "爱玩游戏的陈老师", "aid": 114475910828963, "view": 750792, "like": 6147, "pubdate": 1746778200}, "BV1jT41127r4": {"title": "10款Steam上假期必玩的精品本地同屏多人游戏推荐-LocalCoop", "pic": "http://i0.hdslb.com/bfs/archive/89955ecbee3db0f1ad8f10d152a26e2bad6e215f.jpg", "duration": 566, "owner": "昭柴猫的猫老师", "aid": 480699449, "view": 567524, "like": 5209, "pubdate": 1674266100}, "BV1mk7p69ETm": {"title": "60款本地同屏游戏推荐！Steam夏促第二期", "pic": "http://i1.hdslb.com/bfs/archive/f87bea52a5ed5b6560a5883cbba4fb28e6293acc.jpg", "duration": 326, "owner": "在下路十六", "aid": 116821080480695, "view": 66610, "like": 743, "pubdate": 1782548424}, "BV18fxVz6ERX": {"title": "20款最适合双人同乐的沙发合作游戏", "pic": "http://i0.hdslb.com/bfs/archive/40b2505cf958264fcb88102c3dbc246f971314ef.png", "duration": 1092, "owner": "AI译片君", "aid": 115324603074698, "view": 190780, "like": 1136, "pubdate": 1759714105}, "BV1em3EzpEsv": {"title": "适合情侣的双人本地同屏分屏游戏推荐(一)", "pic": "http://i0.hdslb.com/bfs/archive/6b43a473e18fbfe82cac97cd86c44cf2f7f3f0a6.jpg", "duration": 587, "owner": "眼袋不是眼圈", "aid": 114795365799517, "view": 318690, "like": 2117, "pubdate": 1751639143}, "BV1144y1p7Vo": {"title": "10款情侣/好基友之间双人游玩的steam冷门游戏！", "pic": "http://i1.hdslb.com/bfs/archive/bed43754a896556099ca93307970099b29d80726.jpg", "duration": 684, "owner": "独立游戏蜥蜴君", "aid": 978679570, "view": 289103, "like": 5087, "pubdate": 1643579936}, "BV1CdKizGEWX": {"title": "Switch1/2本地同屏双人多人游戏50款推荐", "pic": "http://i0.hdslb.com/bfs/archive/f4dfa6fb3020860684e9bff328f2c9a11dcf4015.jpg", "duration": 1220, "owner": "走马观游", "aid": 114753271762730, "view": 494189, "like": 4843, "pubdate": 1751018400}, "BV1H4411g7r3": {"title": "4399那些你绝对玩过的双人游戏", "pic": "http://i0.hdslb.com/bfs/archive/675e3c2e1178d3a963478ebd9afad4a4cbe85635.jpg", "duration": 1365, "owner": "到处乱逛的灯塔水母", "aid": 56607716, "view": 76244, "like": 443, "pubdate": 1561296872}, "BV1VJibBfEP2": {"title": "（双人同屏）没想到2010年的游戏还能这么好玩，玩着爽快", "pic": "http://i2.hdslb.com/bfs/archive/da6c9dba3412ad6e33a6723d036251b92a5e6c5c.jpg", "duration": 916, "owner": "小艺游戏", "aid": 115843186821402, "view": 49589, "like": 162, "pubdate": 1767628149}};
 const VER = 1794646385;
-
-const S_BASE = "https://store.steampowered.com";
-const listEl = document.getElementById('list');
-let sortKey = 'hit', query = '';
-
-function esc(s) {
-  return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-}
-function coolStars(c) {
-  const n = (c.match(/★/g) || []).length;
-  return '<span class="cool">' + '★'.repeat(n) + '<span class="empty">' + '★'.repeat(5-n) + '</span></span>';
-}
-function render() {
-  let arr = GAMES.slice();
-  if (query) {
-    const q = query.toLowerCase();
-    arr = arr.filter(g => (g.name + g.en + g.zh + g.genre).toLowerCase().includes(q));
-  }
-  arr.sort((a, b) => {
-    if (sortKey === 'hit')  return b.n - a.n || b.likes - a.likes || a.rank - b.rank;
-    if (sortKey === 'like') return b.likes - a.likes || b.n - a.n;
-    if (sortKey === 'cool') return (b.cool.match(/★/g)||[]).length - (a.cool.match(/★/g)||[]).length || b.n - a.n;
-    return a.rank - b.rank;
-  });
-  if (!arr.length) {
-    listEl.innerHTML = '<div class="empty">没有匹配的游戏。</div>';
-    return;
-  }
-  listEl.innerHTML = arr.map((g, i) => card(g, i + 1)).join('');
-  listEl.querySelectorAll('.toggle').forEach(el => {
-    el.onclick = () => {
-      const m = el.nextElementSibling;
-      m.classList.toggle('open');
-      el.textContent = m.classList.contains('open') ? '收起几条 ▲' : '还有 ' + (m.children.length) + ' 条原话 ▼';
-    };
-  });
-  listEl.querySelectorAll('.card').forEach(cardEl => {
-    const gg = arr.find(x => String(x.rank) === cardEl.getAttribute('data-rank'));
-    if (!gg) return;
-    cardEl.querySelectorAll('.media .shot').forEach(sh => {
-      sh.onclick = () => openMedia(gg, Number(sh.getAttribute('data-i')));
-    });
-  });
-}
-function fmtDur(sec) {
-  const s = Number(sec) || 0;
-  const m = Math.floor(s / 60), r = s % 60;
-  return m + ':' + String(r).padStart(2, '0');
-}
-function media(g) {
-  const items = [];
-  // 游戏截图优先（这些才是游戏长什么样）；ふりーむ / YouTube 来的都是游戏画面
-  (g.shots || []).forEach(s => items.push({ kind: 's', src: 'img/' + s, full: 'img/' + s, cap: g.name + ' 游戏画面' }));
-  // B 站视频缩略图排在后面：它们多是 UP 主大头照 / 字报，不是游戏画面
-  (g.vids || []).forEach(bv => {
-    const v = VIDEOS[bv];
-    if (!v) return;
-    items.push({ kind: 'v', src: 'img/' + bv + '.webp', full: 'https://i0.hdslb.com/' + (v.pic || '').replace(/^https?:\/\/i\d\.hdslb\.com\//, ''),
-      dur: fmtDur(v.duration), cap: v.title, up: v.owner, bv });
-  });
-  if (!items.length) return '<div class="media"><div class="novid">这款只有文字帖，没找到视频或截图</div></div>';
-
-  const cells = items.map((it, i) => `<div class="shot" data-i="${i}">
-      <img src="${it.src}" alt="">
-      ${it.kind === 'v' ? '<span class="tag">视频</span><span class="dur">' + it.dur + '</span><div class="play"><i></i></div>' : ''}
-    </div>`).join('');
-  const hasShot = items.some(it => it.kind === 's'), hasVid = items.some(it => it.kind === 'v');
-  const hint = hasShot ? '游戏画面'
-    : (hasVid ? '<span class="hintwarn">没有找到游戏画面，下面只是 UP 主封面</span>' : '');
-  return `<div class="media">${hint ? '<div class="mhint">' + hint + '</div>' : ''}<div class="strip">${cells}</div></div>`;
-}
-function openMedia(g, idx) {
-  const items = [];
-  // 顺序必须和 media() 一致：游戏画面在前，B 站封面在后
-  (g.shots || []).forEach(s => items.push({ kind: 's', thumb: 'img/' + s, full: 'img/' + s, cap: g.name + ' 游戏画面' }));
-  (g.vids || []).forEach(bv => {
-    const v = VIDEOS[bv]; if (!v) return;
-    items.push({ kind: 'v', thumb: 'img/' + bv + '.webp',
-      full: 'https://i0.hdslb.com/' + (v.pic || '').replace(/^https?:\/\/i\d\.hdslb\.com\//, ''),
-      cap: v.title, up: v.owner, dur: fmtDur(v.duration), bv });
-  });
-  if (!items.length) return;
-  let cur = Math.min(idx, items.length - 1);
-  const box = document.createElement('div');
-  box.className = 'big';
-  document.body.appendChild(box);
-  document.body.style.overflow = 'hidden';
-  function paint() {
-    const it = items[cur];
-    const body = it.kind === 'v'
-      ? `<iframe src="https://player.bilibili.com/player.html?bvid=${it.bv}&autoplay=1&high_quality=1&danmaku=0" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>`
-      : `<img src="${it.full}" alt="">`;
-    box.innerHTML = `<div class="in">
-      ${body}
-      <button class="x" title="关闭">✕</button>
-      ${items.length > 1 ? `<button class="nav prev" ${cur === 0 ? 'disabled' : ''}>‹</button>
-        <button class="nav next" ${cur === items.length - 1 ? 'disabled' : ''}>›</button>` : ''}
-      <div class="cap">
-        <span>${esc(it.cap || '')}</span>
-        ${it.kind === 'v' ? `<span style="color:#aaa">UP：${esc(it.up || '')} · ${it.dur}</span>
-          <a href="https://www.bilibili.com/video/${it.bv}/" target="_blank" rel="noopener">去 B 站看 ↗</a>` : ''}
-        ${items.length > 1 ? `<span style="color:#888;margin-left:auto">${cur + 1} / ${items.length}</span>` : ''}
-      </div>
-    </div>`;
-    box.querySelector('.x').onclick = close;
-    const p = box.querySelector('.nav.prev'), n = box.querySelector('.nav.next');
-    if (p) p.onclick = () => { cur--; paint(); };
-    if (n) n.onclick = () => { cur++; paint(); };
-  }
-  function close() { box.remove(); document.body.style.overflow = ''; document.onkeydown = null; }
-  box.onclick = e => { if (e.target === box) close(); };
-  document.onkeydown = e => {
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft' && cur > 0) { cur--; paint(); }
-    if (e.key === 'ArrowRight' && cur < items.length - 1) { cur++; paint(); }
-  };
-  paint();
-}
-function card(g, i) {
-  const top = g.rank <= 3 ? ' top' : '';
-  const shown = g.evs[0];
-  const rest = g.evs.slice(1);
-  const ev = e => `<div class="ev">
-      <p class="q${e.q.length > 140 ? ' mid' : ''}">${esc(e.q.length > 260 ? e.q.slice(0, 260) + '…' : e.q)}</p>
-      <div class="m">
-        ${e.like ? `<span class="lk">👍 ${e.like}</span>` : ''}
-        <span>${esc(e.when)}</span>
-        <a href="${e.url}" target="_blank" rel="noopener">${e.src === '豆瓣' ? '豆瓣原帖' : e.src === 'ふりーむ' ? 'ふりーむ 作品页' : e.src === '5ch' ? '5ch 原帖' : e.src === '转载站' ? '转载帖' : 'B站原评论'} ↗</a>
-      </div>
-    </div>`;
-  return `<article class="card" data-rank="${g.rank}" data-cool="${(g.cool.match(/★/g)||[]).length}">
-    <div class="rank${g.rank <= 3 ? ' top' : ''}">${g.rank}</div>
-    <div class="chead">
-      <div class="names">
-        <h3 class="gname"><span class="num">${g.rank}</span>${esc(g.name)}<span class="en">${esc(g.en)}</span></h3>
-        <div class="tags">
-          <span class="tag form">${esc(g.people)} · ${esc(g.form)}</span>
-          <span class="tag">${esc(g.genre)}</span>
-        </div>
-      </div>
-      <div class="meter">
-        <div class="num">${g.n}<small>条</small></div>
-        <div class="cap">独立佐证</div>
-        <div class="cool">${'★'.repeat((g.cool.match(/★/g)||[]).length)}<span class="empty">${'★'.repeat(5-(g.cool.match(/★/g)||[]).length)}</span></div>
-      </div>
-    </div>
-    <p class="why">${esc(g.why)}</p>
-    ${media(g)}
-    <div class="links">
-      ${g.steam && g.steam !== '—' ? `<a href="${g.steam}" target="_blank" rel="noopener">Steam 商店页 ↗</a>` : '<a style="color:#bbb;border:none">无 Steam 页</a>'}
-      ${g.url ? `<a href="${g.url}" target="_blank" rel="noopener">${g.evs[0].src === 'ふりーむ' ? '直接下载 ↗' : '原始出处 ↗'}</a>` : ''}
-      ${g.likes ? `<a href="${g.evs.find(e=>e.src==='B站').url.split('?')[0].replace('/#reply','') }" target="_blank" rel="noopener">来源视频 · 共 👍${g.likes}</a>` : ''}
-    </div>
-    <div class="evs">${ev(shown)}</div>
-    ${rest.length ? `<div class="toggle">还有 ${rest.length} 条原话 ▼</div><div class="evs more">${rest.map(ev).join('')}</div>` : ''}
-  </article>`;
-}
-
-document.querySelectorAll('.btn').forEach(b => {
-  b.onclick = () => {
-    document.querySelectorAll('.btn').forEach(x => x.classList.remove('on'));
-    b.classList.add('on');
-    sortKey = b.dataset.sort;
-    render();
-  };
-});
-document.getElementById('q').oninput = e => { query = e.target.value.trim(); render(); };
-render();
 </script>
+<script src="app.js"></script>
 </body>
 </html>
