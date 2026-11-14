@@ -102,7 +102,7 @@
   }
   function openGame(g){
     if(!g) return;
-    lastFocus = document.activeElement;
+    if(!modalRoot.querySelector(".overlay"))lastFocus = document.activeElement;
     var shots = screenshots(g);
     var cover = shots.length ? '<img id="active-image" src="' + esc(shots[0]) + '" alt="' + esc(g.name) + ' 游戏画面">' : '<span class="no-shot">这款暂时没有游戏截图</span>';
     var thumbs = shots.length > 1 ? '<div class="detail-thumbs">' + shots.map(function(s,i){return '<button data-slide="' + i + '" class="' + (i===0?'selected':'') + '" aria-label="查看第' + (i+1) + '张游戏截图"><img loading="lazy" src="' + esc(s) + '" alt=""></button>';}).join("") + '</div>' : '';
